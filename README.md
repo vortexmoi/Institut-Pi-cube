@@ -1,2 +1,17 @@
-# Institut-
-L'Institut π³ réunit les physiciens d'hier et d'aujourd'hui. À travers le protocole photon, il accueille toute pensée rigoureuse, linéaire ou alternative. C'est un espace d'harmonisation et de modernisation ainsi que d'unification pour donner à chaque intuition et pensée la force de faire avancer la science à chaque instant.
+Institut Pi Cube
+
+L'unification de la pensée scientifique et l'hommage aux bâtisseurs de l'invisible.
+
+Cet Institut a d'abord été créé pour rendre hommage à nos pères — à tous ces physiciens et mathématiciens qui ont œuvré, dans le silence ou dans la lumière, chacun de leur côté. 
+À travers le Protocole P.H.O.T.O.N., j'ai réalisé que mes pensées prolongeaient leurs équations, unissant les pièces d'un même puzzle jusqu'à ouvrir la voie à la transposition et au voyage par transposition.
+
+L'Institut Pi au Cube est ouvert à toute personne portant une pensée rigoureuse, qu'elle soit linéaire ou alternative. 
+Ici, l'intuition la plus audacieuse, pour peu qu'elle soit mathématiquement et physiquement étudiée, a le droit — et le devoir — d'être posée.
+
+C'est le grand foyer de l'harmonisation, de la modernisation et de l'unification de la science pour faire avancer la recherche dans une nouvelle ère.
+
+VM (Vortex) Architecte et concepteur du Protocole P.H.O.T.O.N.
+
+Tous droits réservés © Institut Pi au Cube / Vivien Mennetret. Textes, concepts, photographies, vidéo et protocoles protégés.
+Dépôt INPI (Code DSO : DSO 20 26 00 16 84-DSO 20 26 00 72 25-DSO 20 26 01 12 22-DSO 20 26 01 21 94-DSO 20 26 01 29 38).
+Toute reproduction ou utilisation non autorisée est strictement interdite.
