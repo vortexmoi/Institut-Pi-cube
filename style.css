@@ -1,0 +1,48 @@
+body {
+    margin: 0;
+    background-color: #0b0c10;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    color: white;
+}
+
+#facade-container {
+    cursor: pointer;
+    text-align: center;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+#facade-img {
+    width: 800px;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+}
+
+.overlay-text {
+    margin-top: 20px;
+}
+
+.hidden {
+    display: none;
+    opacity: 0;
+}
+
+#hall-container {
+    text-align: center;
+    animation: fadeIn 1s forwards;
+}
+
+#hall-img {
+    width: 900px;
+    border-radius: 12px;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
