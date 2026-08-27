@@ -2,22 +2,70 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Institut PiCube - Entrée</title>
+    <title>Institut Picube - Entrée</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            margin: 0;
+            background-color: #0a192f;
+            color: #d4af37;
+            font-family: 'Arial', sans-serif;
+        }
+        /* Style de la façade visible au départ */
+        #conteneur-de-facade {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            cursor: pointer;
+            text-align: center;
+            padding: 20px;
+        }
+        #conteneur-de-facade img {
+            max-width: 600px;
+            width: 100%;
+            height: auto;
+            border: 3px solid #d4af37;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            margin-bottom: 20px;
+        }
+        /* Style du hall caché au départ */
+        .cache {
+            display: none;
+        }
+        /* Style du hall une fois affiché */
+        #conteneur-de-hall {
+            padding: 40px;
+            text-align: center;
+        }
+        #conteneur-de-hall img {
+            max-width: 800px;
+            width: 100%;
+            height: auto;
+            border: 3px solid #d4af37;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
 
+    <!-- ÉTAPE 1 : La façade s'affiche seule en premier -->
     <div id="conteneur-de-facade" onclick="entrerDansLInstitut()">
-        <img src="a9fb654d-df39-4965-878d-c9711e298981.jpg" alt="Façade Institut Picube" id="image-de-facade">
-        <div class="texte-superpose">
-            <h1>INSTITUT PICUBE - &pi;&sup3;</h1>
-            <p>Cliquez pour entrer</p>
-        </div>
+        <!-- On affiche la sculpture de la façade -->
+        <img src="a9fb654d-df39-4965-878d-c9711e298981.jpg" alt="Façade Institut Picube">
+        <h1>INSTITUT PICUBE - &pi;&sup3;</h1>
+        <p><em>Cliquez sur l'image ou la page pour entrer dans le hall</em></p>
     </div>
 
+    <!-- ÉTAPE 2 : Le hall reste totalement caché tant qu'on n'a pas cliqué -->
     <div id="conteneur-de-hall" class="cache">
         <h2>Hall Circulaire de l'Institut</h2>
-        <img src="f3cae7bd-3392-4852-ae42-cde042e99639.jpg" alt="Hall Circulaire" id="hall-img">
+        <p>Bienvenue au cœur de l'Institut Pi au Cube.</p>
+        <!-- On affiche la photo du hall à l'intérieur -->
+        <img src="f3cae7bd-3392-4852-ae42-cde042e99639.jpg" alt="Hall Circulaire">
     </div>
 
     <script src="script.js"></script>
