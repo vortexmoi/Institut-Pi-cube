@@ -29,7 +29,7 @@
 
 Bienvenue au cœur de l'Institut. Ce espace est dédié à la rigueur théorique, au respect des pères fondateurs de la physique et à l'exploration des structures fondamentales de l'univers.
 
-## 🏛️ Les Espaces et les Bâtisseurs
+🏛️ Les Espaces et les Bâtisseurs
 
 * **Salle Einstein & La Réalité Fondamentale :** Un espace dédié au respect des fondations de la physique, actant la réalité incontestable de la matière noire au-delà des dogmes.
 * **Salle Hertz & Faraday :** Consacrée aux ondes, au champ électromagnétique et aux dynamiques du Vortex Magnétique (Flux VM).
