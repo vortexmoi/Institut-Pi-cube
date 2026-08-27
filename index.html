@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Institut Picube - Entrée</title>
+    <title>Institut PiCube - Entrée</title>
     <style>
         html, body {
             margin: 0;
@@ -14,7 +14,7 @@
             font-family: 'Arial', sans-serif;
             overflow: hidden;
         }
-        /* Écran de la façade : affiché par défaut */
+        /* Écran de la façade : affiché par défaut en grand format */
         #conteneur-de-facade {
             display: flex;
             flex-direction: column;
@@ -29,7 +29,7 @@
         }
         #conteneur-de-facade img {
             width: 95vw;
-            height: 80vh;
+            height: 78vh;
             object-fit: contain;
             border: 3px solid #d4af37;
             border-radius: 8px;
@@ -60,7 +60,7 @@
         }
         #conteneur-de-hall img {
             width: 95vw;
-            height: 80vh;
+            height: 78vh;
             object-fit: contain;
             border: 3px solid #d4af37;
             border-radius: 8px;
@@ -79,20 +79,30 @@
 </head>
 <body>
 
-    <!-- La Façade s'affiche en grand en premier -->
+    <!-- 1. LA FAÇADE (affichée en premier) -->
     <div id="conteneur-de-facade" onclick="entrerDansLInstitut()">
         <img src="a9fb654d-df39-4965-878d-c9711e298981.jpg" alt="Façade de l'Institut">
         <h1>INSTITUT PICUBE - &pi;&sup3;</h1>
         <p><em>Cliquez n'importe où pour entrer dans le hall</em></p>
     </div>
 
-    <!-- Le Hall est caché et n'apparaîtra qu'après le clic grâce au script -->
+    <!-- 2. LE HALL (caché au départ, s'affiche au clic) -->
     <div id="conteneur-de-hall">
         <h2>Hall Circulaire de l'Institut</h2>
         <img src="f3cae7bd-3392-4852-ae42-cde042e99639.jpg" alt="Hall Circulaire">
         <p>Bienvenue au cœur de l'Institut Pi au Cube.</p>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        function entrerDansLInstitut() {
+            var facade = document.getElementById("conteneur-de-facade");
+            var hall = document.getElementById("conteneur-de-hall");
+            
+            if (facade && hall) {
+                facade.style.display = "none";
+                hall.style.display = "flex";
+            }
+        }
+    </script>
 </body>
 </html>
