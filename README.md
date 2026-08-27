@@ -1,29 +1,6 @@
 <div align="center">
 
-# Institut Pi au Cube $\pi^3$
 
-*L'unification de la pensée scientifique et l'hommage aux bâtisseurs de l'invisible.*
-
-[![Entrer dans l'Institut](https://raw.githubusercontent.com/vortexmoi/Institut-Pi-cube/main/chemin_vers_votre_logo.jpg)](https://github.com/vortexmoi/Institut-Pi-cube#hall-principal)
-
-*Cliquez sur l'image ci-dessus pour franchir le seuil.*
-
-</div>
-
----
-
-<div id="hall-principal">
-
-## 🏛️ Le Hall Principal — Les Bâtisseurs & Le Protocole
-
-Bienvenue au cœur de l'Institut Pi au Cube. Ce espace est dédié à la rigueur théorique, au respect des pères fondateurs de la physique et à l'exploration des structures fondamentales de l'univers.
-
-* **Salle Einstein & La Réalité Fondamentale :** Un espace dédié au respect des fondations de la physique, actant la réalité incontestable de la matière noire au-delà des dogmes.
-* **Salle Hertz & Faraday :** Consacrée aux ondes, au champ électromagnétique et aux dynamiques du Vortex Magnétique (Flux VM).
-* **Le Bureau du Protocole :** La synthèse de vos recherches et de vos équations unifiées.
-
----
-*Institut Pi au Cube — Tous droits réservés.*
 </div>
 </div><img width="1408" height="768" alt="1782215705125 (1)" src="https://github.com/user-attachments/assets/56814804-98f7-4d2f-883a-964941a67f28" />
 
