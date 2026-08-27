@@ -100,10 +100,10 @@
             margin: 0;
         }
 
-        /* --- L'avatar interactif d'accueil dans le hall --- */
+        /* --- L'avatar interactif d'accueil dans le hall (FORCÉ À S'AFFICHER) --- */
         #avatar-accueil {
             position: absolute;
-            bottom: 40px;
+            bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
@@ -113,7 +113,7 @@
             border-radius: 15px;
             padding: 15px 25px;
             box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
-            z-index: 200;
+            z-index: 999; /* Toujours au premier plan absolu */
             animation: apparitionAvatar 0.8s ease-out forwards;
         }
 
@@ -123,7 +123,7 @@
         }
 
         #avatar-accueil img {
-            width: 80px;
+            width: 90px;
             height: auto;
             margin-right: 15px;
             border: none;
@@ -149,7 +149,7 @@
             background: #d4af37;
             color: #050b14;
             border: none;
-            padding: 5px 12px;
+            padding: 6px 14px;
             font-weight: bold;
             border-radius: 4px;
             cursor: pointer;
@@ -162,7 +162,7 @@
 </head>
 <body>
 
-    <!-- LE GUIDE VIVANT EN HAUT (Utilise aussi l'image de PiCube) -->
+    <!-- LE GUIDE VIVANT EN HAUT -->
     <img src="image_1d9359.jpg" alt="Le Guide de l'Institut PiCube" class="logo-vivant" title="Le Guide de l'Institut">
 
     <!-- 1. LA FAÇADE -->
@@ -178,7 +178,7 @@
         <img src="hall.jpg" alt="Hall Circulaire">
         <p>Bienvenue au cœur de l'Institut Pi au Cube.</p>
 
-        <!-- PIICUBE QUI VIENT NOUS ACCUEILLIR -->
+        <!-- PIICUBE QUI VIENT NOUS ACCUEILLIR AU PREMIER PLAN -->
         <div id="avatar-accueil">
             <img src="image_1d9359.jpg" alt="Avatar PiCube">
             <div class="bulle-dialogue">
@@ -196,14 +196,14 @@
             
             if (facade && hall) {
                 facade.style.display = "none";
-                hall.style.display = "flex";
+                hall.style.display = "flex"; // S'assure que le hall et son avatar s'affichent bien
             }
         }
 
         function fermerAccueil() {
             var avatar = document.getElementById("avatar-accueil");
             if (avatar) {
-                avatar.style.display = "none";
+                avatar.style.display = "none"; // Cache la bulle quand on clique pour l'enlever
             }
         }
     </script>
