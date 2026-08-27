@@ -15,7 +15,6 @@
             overflow: hidden;
         }
         
-        /* Styles communs aux conteneurs */
         .page-container {
             display: flex;
             flex-direction: column;
@@ -55,52 +54,37 @@
             }
         }
 
-        /* Écran de la façade */
-        #conteneur-de-facade img {
-            width: 95vw;
-            height: 70vh;
-            object-fit: contain;
+        /* Styles des images de la façade et du hall */
+        .image-institut {
+            width: 90vw;
+            max-width: 1100px;
+            height: 68vh;
+            object-fit: cover;
             border: 3px solid #d4af37;
-            border-radius: 8px;
-            box-shadow: 0 0 50px rgba(212, 175, 55, 0.3);
-            margin-bottom: 10px;
-            margin-top: 90px;
+            border-radius: 10px;
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.4);
+            margin-bottom: 15px;
+            margin-top: 80px;
         }
-        #conteneur-de-facade h1 {
+
+        h1, h2 {
             font-size: 1.8rem;
             letter-spacing: 2px;
             margin: 5px 0;
         }
-        #conteneur-de-facade p {
+
+        p {
             font-size: 1rem;
             margin: 0;
         }
         
-        /* Écran du hall */
+        /* Écran du hall caché par défaut */
         #conteneur-de-hall {
             display: none;
             position: relative;
         }
-        #conteneur-de-hall img {
-            width: 95vw;
-            height: 70vh;
-            object-fit: contain;
-            border: 3px solid #d4af37;
-            border-radius: 8px;
-            box-shadow: 0 0 50px rgba(212, 175, 55, 0.3);
-            margin-bottom: 10px;
-            margin-top: 90px;
-        }
-        #conteneur-de-hall h2 {
-            font-size: 1.8rem;
-            margin: 5px 0;
-        }
-        #conteneur-de-hall p {
-            font-size: 1rem;
-            margin: 0;
-        }
 
-        /* --- L'avatar interactif d'accueil dans le hall (FORCÉ À S'AFFICHER) --- */
+        /* --- L'avatar interactif d'accueil dans le hall --- */
         #avatar-accueil {
             position: absolute;
             bottom: 30px;
@@ -112,8 +96,8 @@
             border: 2px solid #d4af37;
             border-radius: 15px;
             padding: 15px 25px;
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
-            z-index: 999; /* Toujours au premier plan absolu */
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.6);
+            z-index: 999;
             animation: apparitionAvatar 0.8s ease-out forwards;
         }
 
@@ -123,7 +107,7 @@
         }
 
         #avatar-accueil img {
-            width: 90px;
+            width: 85px;
             height: auto;
             margin-right: 15px;
             border: none;
@@ -137,7 +121,7 @@
         }
         .bulle-dialogue h3 {
             margin: 0 0 5px 0;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: #d4af37;
         }
         .bulle-dialogue p {
@@ -165,20 +149,20 @@
     <!-- LE GUIDE VIVANT EN HAUT -->
     <img src="image_1d9359.jpg" alt="Le Guide de l'Institut PiCube" class="logo-vivant" title="Le Guide de l'Institut">
 
-    <!-- 1. LA FAÇADE -->
+    <!-- 1. LA FAÇADE (Affichée en premier) -->
     <div id="conteneur-de-facade" class="page-container" onclick="entrerDansLInstitut()">
-        <img src="facade.jpg" alt="Façade de l'Institut">
+        <img src="facade.jpg" alt="Façade de l'Institut" class="image-institut">
         <h1>INSTITUT PICUBE - &pi;&sup3;</h1>
-        <p><em>Cliquez n'importe où pour entrer dans le hall</em></p>
+        <p><em>Cliquez n'importe où sur la façade pour entrer dans le hall</em></p>
     </div>
 
-    <!-- 2. LE HALL -->
+    <!-- 2. LE HALL (Affiché au clic) -->
     <div id="conteneur-de-hall" class="page-container" onclick="event.stopPropagation();">
         <h2>Hall Circulaire de l'Institut</h2>
-        <img src="hall.jpg" alt="Hall Circulaire">
+        <img src="hall.jpg" alt="Hall Circulaire" class="image-institut">
         <p>Bienvenue au cœur de l'Institut Pi au Cube.</p>
 
-        <!-- PIICUBE QUI VIENT NOUS ACCUEILLIR AU PREMIER PLAN -->
+        <!-- PIICUBE QUI VIENT NOUS ACCUEILLIR -->
         <div id="avatar-accueil">
             <img src="image_1d9359.jpg" alt="Avatar PiCube">
             <div class="bulle-dialogue">
@@ -196,14 +180,14 @@
             
             if (facade && hall) {
                 facade.style.display = "none";
-                hall.style.display = "flex"; // S'assure que le hall et son avatar s'affichent bien
+                hall.style.display = "flex";
             }
         }
 
         function fermerAccueil() {
             var avatar = document.getElementById("avatar-accueil");
             if (avatar) {
-                avatar.style.display = "none"; // Cache la bulle quand on clique pour l'enlever
+                avatar.style.display = "none";
             }
         }
     </script>
