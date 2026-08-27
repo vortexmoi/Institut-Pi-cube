@@ -84,30 +84,42 @@
             position: relative;
         }
 
-        /* --- L'avatar interactif d'accueil dans le hall --- */
+        /* --- L'EFFET DE DÉTACHEMENT DE LA STATUE --- */
         #avatar-accueil {
             position: absolute;
-            bottom: 30px;
+            /* Position exacte au centre du hall, là où se trouve la statue sur l'image */
+            top: 42%;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translate(-50%, -50%) scale(0.2);
+            opacity: 0;
             display: flex;
             align-items: center;
             background: rgba(5, 11, 20, 0.95);
             border: 2px solid #d4af37;
             border-radius: 15px;
             padding: 15px 25px;
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.6);
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.8);
             z-index: 999;
-            animation: apparitionAvatar 0.8s ease-out forwards;
+            /* Animation qui fait jaillir Pi de la statue vers l'avant-plan */
+            animation: detachementStatue 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            animation-delay: 0.2s; /* Petit délai pour laisser le temps de voir le hall */
         }
 
-        @keyframes apparitionAvatar {
-            0% { transform: translateX(-50%) scale(0.5); opacity: 0; }
-            100% { transform: translateX(-50%) scale(1); opacity: 1; }
+        @keyframes detachementStatue {
+            0% {
+                top: 42%;
+                transform: translate(-50%, -50%) scale(0.2);
+                opacity: 0;
+            }
+            100% {
+                top: 65%; /* Vient se positionner bien en avant-plan */
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
         }
 
         #avatar-accueil img {
-            width: 85px;
+            width: 90px;
             height: auto;
             margin-right: 15px;
             border: none;
@@ -162,7 +174,7 @@
         <img src="hall.jpg" alt="Hall Circulaire" class="image-institut">
         <p>Bienvenue au cœur de l'Institut Pi au Cube.</p>
 
-        <!-- PIICUBE QUI VIENT NOUS ACCUEILLIR -->
+        <!-- PI QUI SE DÉTACHE DE LA STATUE POUR VENIR ACCUEILLIR -->
         <div id="avatar-accueil">
             <img src="logopi.jpg" alt="Avatar PiCube">
             <div class="bulle-dialogue">
