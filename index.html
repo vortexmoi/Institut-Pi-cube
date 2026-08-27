@@ -100,7 +100,7 @@
             margin: 0;
         }
 
-        /* --- Le double d'accueil interactif (Apparaît dans le hall) --- */
+        /* --- L'avatar interactif d'accueil dans le hall --- */
         #avatar-accueil {
             position: absolute;
             bottom: 40px;
@@ -165,20 +165,20 @@
     <!-- LE GUIDE VIVANT EN HAUT -->
     <img src="image_1d9359.jpg" alt="Le Guide de l'Institut PiCube" class="logo-vivant" title="Le Guide de l'Institut">
 
-    <!-- 1. LA FAÇADE -->
+    <!-- 1. LA FAÇADE (Affichée en premier) -->
     <div id="conteneur-de-facade" class="page-container" onclick="entrerDansLInstitut()">
         <img src="a9fb654d-df39-4965-878d-c9711e298981.jpg" alt="Façade de l'Institut">
         <h1>INSTITUT PICUBE - &pi;&sup3;</h1>
         <p><em>Cliquez n'importe où pour entrer dans le hall</em></p>
     </div>
 
-    <!-- 2. LE HALL -->
+    <!-- 2. LE HALL (Affiché au clic, avec l'avatar d'accueil) -->
     <div id="conteneur-de-hall" class="page-container" onclick="event.stopPropagation();">
         <h2>Hall Circulaire de l'Institut</h2>
         <img src="f3cae7bd-3392-4852-ae42-cde042e99639.jpg" alt="Hall Circulaire">
         <p>Bienvenue au cœur de l'Institut Pi au Cube.</p>
 
-        <!-- DOUBLE DE LA STATUE QUI VIEANT ACCUEILLIR -->
+        <!-- PIICUBE QUI VIENT NOUS ACCUEILLIR -->
         <div id="avatar-accueil">
             <img src="image_1d9359.jpg" alt="Avatar PiCube">
             <div class="bulle-dialogue">
@@ -203,7 +203,7 @@
         function fermerAccueil() {
             var avatar = document.getElementById("avatar-accueil");
             if (avatar) {
-                avatar.style.display = "none"; // Fait disparaître la bulle d'accueil pour profiter pleinement du hall
+                avatar.style.display = "none"; // Masque la bulle d'accueil pour profiter du hall
             }
         }
     </script>
