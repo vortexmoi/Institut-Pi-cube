@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Institut Picube - Entrée</title>
-    <link rel="stylesheet" href="style.css">
     <style>
         html, body {
             margin: 0;
@@ -13,9 +12,9 @@
             background-color: #050b14;
             color: #d4af37;
             font-family: 'Arial', sans-serif;
-            overflow-x: hidden;
+            overflow: hidden;
         }
-        /* Conteneur plein écran maximal */
+        /* Écran de la façade : affiché par défaut */
         #conteneur-de-facade {
             display: flex;
             flex-direction: column;
@@ -28,10 +27,9 @@
             box-sizing: border-box;
             padding: 10px;
         }
-        /* Image en très grand format (occupe presque toute la hauteur et largeur) */
         #conteneur-de-facade img {
             width: 95vw;
-            height: 82vh;
+            height: 80vh;
             object-fit: contain;
             border: 3px solid #d4af37;
             border-radius: 8px;
@@ -48,14 +46,9 @@
             margin: 0;
         }
         
-        /* Classe pour masquer le hall */
-        .cache {
-            display: none;
-        }
-        
-        /* Hall en très grand format également */
+        /* Écran du hall : TOTALEMENT CACHÉ au démarrage */
         #conteneur-de-hall {
-            display: flex;
+            display: none;
             flex-direction: column;
             justify-content: center;
             align-items: center;
@@ -67,12 +60,12 @@
         }
         #conteneur-de-hall img {
             width: 95vw;
-            height: 82vh;
+            height: 80vh;
             object-fit: contain;
             border: 3px solid #d4af37;
             border-radius: 8px;
             box-shadow: 0 0 50px rgba(212, 175, 55, 0.3);
-            margin-top: 10px;
+            margin-bottom: 10px;
         }
         #conteneur-de-hall h2 {
             font-size: 1.8rem;
@@ -86,15 +79,15 @@
 </head>
 <body>
 
-    <!-- ÉTAPE 1 : La Façade grand format -->
+    <!-- La Façade s'affiche en grand en premier -->
     <div id="conteneur-de-facade" onclick="entrerDansLInstitut()">
         <img src="a9fb654d-df39-4965-878d-c9711e298981.jpg" alt="Façade de l'Institut">
         <h1>INSTITUT PICUBE - &pi;&sup3;</h1>
-        <p><em>Cliquez n'importe où pour entrer</em></p>
+        <p><em>Cliquez n'importe où pour entrer dans le hall</em></p>
     </div>
 
-    <!-- ÉTAPE 2 : Le Hall grand format -->
-    <div id="conteneur-de-hall" class="cache">
+    <!-- Le Hall est caché et n'apparaîtra qu'après le clic grâce au script -->
+    <div id="conteneur-de-hall">
         <h2>Hall Circulaire de l'Institut</h2>
         <img src="f3cae7bd-3392-4852-ae42-cde042e99639.jpg" alt="Hall Circulaire">
         <p>Bienvenue au cœur de l'Institut Pi au Cube.</p>
