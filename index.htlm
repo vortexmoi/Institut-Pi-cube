@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Institut Picube - Entrée</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="facade-container" onclick="entrerDansLInstitut()">
+        <img src="image_1b58ff.jpg" alt="Façade Institut Picube" id="facade-img">
+        <div class="overlay-text">
+            <h1>INSTITUT PICUBE – $\pi^3$</h1>
+            <p>Cliquez pour entrer</p>
+        </div>
+    </div>
+
+    <div id="hall-container" class="hidden">
+        <h2>Hall Circulaire de l'Institut</h2>
+        <img src="watermarked_img_16725612694695369860.jpg" alt="Hall Circulaire" id="hall-img">
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
