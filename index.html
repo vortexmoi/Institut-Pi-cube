@@ -11,60 +11,60 @@
             color: #d4af37;
             font-family: 'Arial', sans-serif;
         }
-        /* Style de la façade visible au départ */
+        /* La façade prend tout l'écran et invite au clic */
         #conteneur-de-facade {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             cursor: pointer;
             text-align: center;
             padding: 20px;
+            box-sizing: border-box;
         }
         #conteneur-de-facade img {
-            max-width: 600px;
+            max-width: 850px;
             width: 100%;
             height: auto;
-            border: 3px solid #d4af37;
+            border: 4px solid #d4af37;
             border-radius: 8px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
-        /* Style du hall caché au départ */
+        /* Classe pour cacher le hall au départ */
         .cache {
             display: none;
         }
-        /* Style du hall une fois affiché */
+        /* Style du hall lorsqu'on est entré */
         #conteneur-de-hall {
             padding: 40px;
             text-align: center;
         }
         #conteneur-de-hall img {
-            max-width: 800px;
+            max-width: 850px;
             width: 100%;
             height: auto;
-            border: 3px solid #d4af37;
+            border: 4px solid #d4af37;
             border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
             margin-top: 20px;
         }
     </style>
 </head>
 <body>
 
-    <!-- ÉTAPE 1 : La façade s'affiche seule en premier -->
+    <!-- ÉTAPE 1 : La façade (la sculpture) s'affiche en grand en premier -->
     <div id="conteneur-de-facade" onclick="entrerDansLInstitut()">
-        <!-- On affiche la sculpture de la façade -->
         <img src="a9fb654d-df39-4965-878d-c9711e298981.jpg" alt="Façade Institut Picube">
         <h1>INSTITUT PICUBE - &pi;&sup3;</h1>
-        <p><em>Cliquez sur l'image ou la page pour entrer dans le hall</em></p>
+        <p><em>Cliquez n'importe où sur l'image ou l'écran pour entrer</em></p>
     </div>
 
-    <!-- ÉTAPE 2 : Le hall reste totalement caché tant qu'on n'a pas cliqué -->
+    <!-- ÉTAPE 2 : Le hall (le plan technique) s'affiche après le clic -->
     <div id="conteneur-de-hall" class="cache">
         <h2>Hall Circulaire de l'Institut</h2>
         <p>Bienvenue au cœur de l'Institut Pi au Cube.</p>
-        <!-- On affiche la photo du hall à l'intérieur -->
         <img src="f3cae7bd-3392-4852-ae42-cde042e99639.jpg" alt="Hall Circulaire">
     </div>
 
