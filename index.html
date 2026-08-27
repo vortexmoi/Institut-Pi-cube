@@ -7,65 +7,87 @@
     <style>
         body {
             margin: 0;
-            background-color: #0a192f;
+            background-color: #050b14;
             color: #d4af37;
             font-family: 'Arial', sans-serif;
         }
-        /* La façade prend tout l'écran et invite au clic */
+        /* Conteneur principal plein écran pour que l'image soit très grande et cliquable partout */
         #conteneur-de-facade {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            width: 100vw;
             min-height: 100vh;
             cursor: pointer;
+            text-align: center;
+            box-sizing: border-box;
+            padding: 20px;
+        }
+        /* Image de façade grand format (agrandie au maximum) */
+        #conteneur-de-facade img {
+            width: 90vw;
+            max-width: 1300px;
+            height: auto;
+            border: 5px solid #d4af37;
+            border-radius: 12px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.9);
+            margin-bottom: 20px;
+        }
+        #conteneur-de-facade h1 {
+            font-size: 2.5rem;
+            letter-spacing: 3px;
+            margin: 10px 0;
+        }
+        #conteneur-de-facade p {
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+        }
+        
+        /* Classe pour masquer le hall au démarrage */
+        .cache {
+            display: none;
+        }
+        
+        /* Style du hall grand format lorsqu'on a cliqué */
+        #conteneur-de-hall {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100vw;
+            min-height: 100vh;
             text-align: center;
             padding: 20px;
             box-sizing: border-box;
         }
-        #conteneur-de-facade img {
-            max-width: 850px;
-            width: 100%;
-            height: auto;
-            border: 4px solid #d4af37;
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-            margin-bottom: 25px;
-        }
-        /* Classe pour cacher le hall au départ */
-        .cache {
-            display: none;
-        }
-        /* Style du hall lorsqu'on est entré */
-        #conteneur-de-hall {
-            padding: 40px;
-            text-align: center;
-        }
         #conteneur-de-hall img {
-            max-width: 850px;
-            width: 100%;
+            width: 90vw;
+            max-width: 1300px;
             height: auto;
-            border: 4px solid #d4af37;
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            border: 5px solid #d4af37;
+            border-radius: 12px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.9);
             margin-top: 20px;
         }
     </style>
 </head>
 <body>
 
-    <!-- ÉTAPE 1 : La façade (la sculpture) s'affiche en grand en premier -->
+    <!-- ÉTAPE 1 : La façade (les rôles et images sont maintenant inversés) -->
     <div id="conteneur-de-facade" onclick="entrerDansLInstitut()">
-        <img src="a9fb654d-df39-4965-878d-c9711e298981.jpg" alt="Façade Institut Picube">
+        <!-- Image inversée mise en façade en grand format -->
+        <img src="f3cae7bd-3392-4852-ae42-cde042e99639.jpg" alt="Façade de l'Institut">
         <h1>INSTITUT PICUBE - &pi;&sup3;</h1>
-        <p><em>Cliquez n'importe où sur l'image ou l'écran pour entrer</em></p>
+        <p><em>Cliquez n'importe où pour entrer dans le hall</em></p>
     </div>
 
-    <!-- ÉTAPE 2 : Le hall (le plan technique) s'affiche après le clic -->
+    <!-- ÉTAPE 2 : Le hall qui s'affiche après le clic en grand format -->
     <div id="conteneur-de-hall" class="cache">
         <h2>Hall Circulaire de l'Institut</h2>
         <p>Bienvenue au cœur de l'Institut Pi au Cube.</p>
-        <img src="f3cae7bd-3392-4852-ae42-cde042e99639.jpg" alt="Hall Circulaire">
+        <!-- Deuxième image inversée pour l'intérieur -->
+        <img src="a9fb654d-df39-4965-878d-c9711e298981.jpg" alt="Hall Circulaire">
     </div>
 
     <script src="script.js"></script>
