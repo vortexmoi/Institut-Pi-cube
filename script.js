@@ -1,15 +1,9 @@
-// Fonction déclenchée lors du clic sur la façade
 function entrerDansLInstitut() {
-    const facade = document.getElementById('facade-container');
-    const hall = document.getElementById('hall-container');
-
-    // Effet visuel de transition
-    facade.style.transform = 'scale(1.1)';
-    facade.style.opacity = '0';
-
-    setTimeout(() => {
-        facade.style.display = 'none';
-        hall.classList.remove('hidden');
-        console.log("Entrée réussie dans le hall circulaire de l'Institut Picube.");
-    }, 500);
+    var facade = document.getElementById("conteneur-de-facade");
+    var hall = document.getElementById("conteneur-de-hall");
+    
+    if (facade && hall) {
+        facade.style.display = "none";   // Masque complètement la façade
+        hall.style.display = "flex";     // Affiche le hall en grand format
+    }
 }
