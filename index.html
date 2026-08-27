@@ -14,8 +14,9 @@
             font-family: 'Arial', sans-serif;
             overflow: hidden;
         }
-        /* Écran de la façade : affiché par défaut en grand format */
-        #conteneur-de-facade {
+        
+        /* Styles communs aux conteneurs */
+        .page-container {
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -27,14 +28,43 @@
             box-sizing: border-box;
             padding: 10px;
         }
+
+        /* --- Le Logo / Guide Vivant en haut --- */
+        .logo-vivant {
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            width: 120px;
+            height: auto;
+            animation: levitationPulsante 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes levitationPulsante {
+            0% {
+                transform: translateX(-50%) translateY(0) scale(1);
+                filter: drop-shadow(0 0 5px #d4af37);
+            }
+            50% {
+                filter: drop-shadow(0 0 15px #d4af37);
+            }
+            100% {
+                transform: translateX(-50%) translateY(-10px) scale(1.03);
+                filter: drop-shadow(0 0 5px #d4af37);
+            }
+        }
+
+        /* Écran de la façade */
         #conteneur-de-facade img {
             width: 95vw;
-            height: 78vh;
+            height: 70vh;
             object-fit: contain;
             border: 3px solid #d4af37;
             border-radius: 8px;
             box-shadow: 0 0 50px rgba(212, 175, 55, 0.3);
             margin-bottom: 10px;
+            margin-top: 90px;
         }
         #conteneur-de-facade h1 {
             font-size: 1.8rem;
@@ -46,26 +76,20 @@
             margin: 0;
         }
         
-        /* Écran du hall : TOTALEMENT CACHÉ au démarrage */
+        /* Écran du hall */
         #conteneur-de-hall {
             display: none;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 100vw;
-            height: 100vh;
-            text-align: center;
-            box-sizing: border-box;
-            padding: 10px;
+            position: relative;
         }
         #conteneur-de-hall img {
             width: 95vw;
-            height: 78vh;
+            height: 70vh;
             object-fit: contain;
             border: 3px solid #d4af37;
             border-radius: 8px;
             box-shadow: 0 0 50px rgba(212, 175, 55, 0.3);
             margin-bottom: 10px;
+            margin-top: 90px;
         }
         #conteneur-de-hall h2 {
             font-size: 1.8rem;
@@ -75,22 +99,94 @@
             font-size: 1rem;
             margin: 0;
         }
+
+        /* --- Le double d'accueil interactif (Apparaît dans le hall) --- */
+        #avatar-accueil {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            background: rgba(5, 11, 20, 0.95);
+            border: 2px solid #d4af37;
+            border-radius: 15px;
+            padding: 15px 25px;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+            z-index: 200;
+            animation: apparitionAvatar 0.8s ease-out forwards;
+        }
+
+        @keyframes apparitionAvatar {
+            0% { transform: translateX(-50%) scale(0.5); opacity: 0; }
+            100% { transform: translateX(-50%) scale(1); opacity: 1; }
+        }
+
+        #avatar-accueil img {
+            width: 80px;
+            height: auto;
+            margin-right: 15px;
+            border: none;
+            box-shadow: none;
+            margin-top: 0;
+            animation: levitationPulsante 2s ease-in-out infinite alternate;
+        }
+
+        .bulle-dialogue {
+            text-align: left;
+        }
+        .bulle-dialogue h3 {
+            margin: 0 0 5px 0;
+            font-size: 1.2rem;
+            color: #d4af37;
+        }
+        .bulle-dialogue p {
+            margin: 0 0 10px 0;
+            font-size: 0.95rem;
+            color: #ffffff;
+        }
+        .btn-fermer {
+            background: #d4af37;
+            color: #050b14;
+            border: none;
+            padding: 5px 12px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-fermer:hover {
+            background: #fff;
+        }
     </style>
 </head>
 <body>
 
-    <!-- 1. LA FAÇADE (La sculpture s'affiche en premier en grand format) -->
-    <div id="conteneur-de-facade" onclick="entrerDansLInstitut()">
+    <!-- LE GUIDE VIVANT EN HAUT -->
+    <img src="image_1d9359.jpg" alt="Le Guide de l'Institut PiCube" class="logo-vivant" title="Le Guide de l'Institut">
+
+    <!-- 1. LA FAÇADE -->
+    <div id="conteneur-de-facade" class="page-container" onclick="entrerDansLInstitut()">
         <img src="a9fb654d-df39-4965-878d-c9711e298981.jpg" alt="Façade de l'Institut">
         <h1>INSTITUT PICUBE - &pi;&sup3;</h1>
         <p><em>Cliquez n'importe où pour entrer dans le hall</em></p>
     </div>
 
-    <!-- 2. LE HALL (Le plan s'affiche après le clic) -->
-    <div id="conteneur-de-hall">
+    <!-- 2. LE HALL -->
+    <div id="conteneur-de-hall" class="page-container" onclick="event.stopPropagation();">
         <h2>Hall Circulaire de l'Institut</h2>
         <img src="f3cae7bd-3392-4852-ae42-cde042e99639.jpg" alt="Hall Circulaire">
         <p>Bienvenue au cœur de l'Institut Pi au Cube.</p>
+
+        <!-- DOUBLE DE LA STATUE QUI VIEANT ACCUEILLIR -->
+        <div id="avatar-accueil">
+            <img src="image_1d9359.jpg" alt="Avatar PiCube">
+            <div class="bulle-dialogue">
+                <h3>PiCube (Guide de l'Institut)</h3>
+                <p>😊 Bonjour ! Comment puis-je vous aider ?</p>
+                <button class="btn-fermer" onclick="fermerAccueil()">Entrer dans l'Institut</button>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -101,6 +197,13 @@
             if (facade && hall) {
                 facade.style.display = "none";
                 hall.style.display = "flex";
+            }
+        }
+
+        function fermerAccueil() {
+            var avatar = document.getElementById("avatar-accueil");
+            if (avatar) {
+                avatar.style.display = "none"; // Fait disparaître la bulle d'accueil pour profiter pleinement du hall
             }
         }
     </script>
