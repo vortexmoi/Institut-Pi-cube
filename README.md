@@ -1,6 +1,6 @@
 <div align="center">
 
-<!-- LA PORTE INTERACTIVE AVEC VOTRE LOGO -->
+< LA PORTE INTERACTIVE AVEC VOTRE LOGO -->
 <a href="#hall-principal" style="text-decoration: none;">
     <div style="display: inline-block; width: 240px; height: 380px; background: linear-gradient(135deg, #1e293b, #0f172a); border: 4px solid #d4af37; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); position: relative; cursor: pointer;">
         
@@ -21,7 +21,7 @@
 
 <br><br><hr><br>
 <div id="hall-principal">
-<!-- LE HALL PRINCIPAL (Affiché après avoir franchi la porte) -->
+< LE HALL PRINCIPAL (Affiché après avoir franchi la porte) -->
 <div id="hall-principal">
 
 # Institut Pi au Cube $\pi^3$
