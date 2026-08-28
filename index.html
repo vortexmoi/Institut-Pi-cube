@@ -28,43 +28,16 @@
             padding: 10px;
         }
 
-        /* --- Le Logo / Guide Vivant en haut --- */
-        .logo-vivant {
-            position: absolute;
-            top: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 100;
-            width: 120px;
-            height: auto;
-            animation: levitationPulsante 3s ease-in-out infinite alternate;
-        }
-
-        @keyframes levitationPulsante {
-            0% {
-                transform: translateX(-50%) translateY(0) scale(1);
-                filter: drop-shadow(0 0 5px #d4af37);
-            }
-            50% {
-                filter: drop-shadow(0 0 15px #d4af37);
-            }
-            100% {
-                transform: translateX(-50%) translateY(-10px) scale(1.03);
-                filter: drop-shadow(0 0 5px #d4af37);
-            }
-        }
-
         /* Styles des images de la façade et du hall */
         .image-institut {
             width: 90vw;
             max-width: 1100px;
-            height: 68vh;
+            height: 75vh;
             object-fit: cover;
             border: 3px solid #d4af37;
             border-radius: 10px;
             box-shadow: 0 0 40px rgba(212, 175, 55, 0.4);
             margin-bottom: 15px;
-            margin-top: 80px;
         }
 
         h1, h2 {
@@ -84,13 +57,12 @@
             position: relative;
         }
 
-        /* --- L'EFFET DE DÉTACHEMENT DE LA STATUE --- */
+        /* --- L'EFFET DE MARCHE DEPUIS LA STATUE --- */
         #avatar-accueil {
             position: absolute;
-            /* Position exacte au centre du hall, là où se trouve la statue sur l'image */
             top: 42%;
             left: 50%;
-            transform: translate(-50%, -50%) scale(0.2);
+            transform: translate(-50%, -50%) scale(0.1);
             opacity: 0;
             display: flex;
             align-items: center;
@@ -98,34 +70,42 @@
             border: 2px solid #d4af37;
             border-radius: 15px;
             padding: 15px 25px;
-            box-shadow: 0 0 40px rgba(212, 175, 55, 0.8);
+            box-shadow: 0 0 50px rgba(212, 175, 55, 0.9);
             z-index: 999;
-            /* Animation qui fait jaillir Pi de la statue vers l'avant-plan */
-            animation: detachementStatue 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-            animation-delay: 0.2s; /* Petit délai pour laisser le temps de voir le hall */
+            /* Animation simulant la marche et l'approche vers l'avant-plan */
+            animation: marcheVersNous 1.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            animation-delay: 0.2s;
         }
 
-        @keyframes detachementStatue {
+        @keyframes marcheVersNous {
             0% {
                 top: 42%;
-                transform: translate(-50%, -50%) scale(0.2);
+                transform: translate(-50%, -50%) scale(0.1) rotate(0deg);
                 opacity: 0;
             }
+            50% {
+                opacity: 1;
+            }
             100% {
-                top: 65%; /* Vient se positionner bien en avant-plan */
-                transform: translate(-50%, -50%) scale(1);
+                top: 68%; /* S'avance tout à fait au premier plan */
+                transform: translate(-50%, -50%) scale(1) rotate(0deg);
                 opacity: 1;
             }
         }
 
+        @keyframes lévitationMarche {
+            0% { transform: translateY(0) rotate(-1deg); filter: drop-shadow(0 0 8px #d4af37); }
+            50% { transform: translateY(-8px) rotate(1deg); filter: drop-shadow(0 0 20px #d4af37); }
+            100% { transform: translateY(0) rotate(-1deg); filter: drop-shadow(0 0 8px #d4af37); }
+        }
+
         #avatar-accueil img {
-            width: 90px;
+            width: 100px;
             height: auto;
             margin-right: 15px;
             border: none;
             box-shadow: none;
-            margin-top: 0;
-            animation: levitationPulsante 2s ease-in-out infinite alternate;
+            animation: lévitationMarche 1.5s ease-in-out infinite alternate;
         }
 
         .bulle-dialogue {
@@ -158,9 +138,6 @@
 </head>
 <body>
 
-    <!-- LE GUIDE VIVANT EN HAUT -->
-    <img src="logopi.jpg" alt="Le Guide de l'Institut PiCube" class="logo-vivant" title="Le Guide de l'Institut">
-
     <!-- 1. LA FAÇADE -->
     <div id="conteneur-de-facade" class="page-container" onclick="entrerDansLInstitut()">
         <img src="facade.jpg" alt="Façade de l'Institut" class="image-institut">
@@ -174,7 +151,7 @@
         <img src="hall.jpg" alt="Hall Circulaire" class="image-institut">
         <p>Bienvenue au cœur de l'Institut Pi au Cube.</p>
 
-        <!-- PI QUI SE DÉTACHE DE LA STATUE POUR VENIR ACCUEILLIR -->
+        <!-- PI QUI SE DÉTACHE DE LA STATUE ET S'AVANCE VERS NOUS -->
         <div id="avatar-accueil">
             <img src="logopi.jpg" alt="Avatar PiCube">
             <div class="bulle-dialogue">
