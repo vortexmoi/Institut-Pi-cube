@@ -16,45 +16,58 @@
         }
         
         .page-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            width: 100vw;
-            height: 100vh;
             cursor: pointer;
-            text-align: center;
             box-sizing: border-box;
-            padding: 10px;
         }
 
-        /* Styles des images de la façade et du hall */
+        /* Images plein écran */
         .image-institut {
-            width: 90vw;
-            max-width: 1100px;
-            height: 75vh;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
             object-fit: cover;
-            border: 3px solid #d4af37;
+            z-index: 1;
+        }
+
+        /* Textes et indications par-dessus l'image en plein écran */
+        .overlay-content {
+            position: relative;
+            z-index: 2;
+            background: rgba(5, 11, 20, 0.8);
+            padding: 20px 40px;
             border-radius: 10px;
-            box-shadow: 0 0 40px rgba(212, 175, 55, 0.4);
-            margin-bottom: 15px;
+            border: 2px solid #d4af37;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.6);
         }
 
         h1, h2 {
-            font-size: 1.8rem;
+            font-size: 2rem;
             letter-spacing: 2px;
-            margin: 5px 0;
+            margin: 0 0 10px 0;
+            color: #d4af37;
         }
 
         p {
-            font-size: 1rem;
+            font-size: 1.1rem;
             margin: 0;
+            color: #ffffff;
         }
         
         /* Écran du hall caché par défaut */
         #conteneur-de-hall {
             display: none;
-            position: relative;
         }
 
         /* --- L'EFFET DE MARCHE DEPUIS LA STATUE --- */
@@ -71,8 +84,7 @@
             border-radius: 15px;
             padding: 15px 25px;
             box-shadow: 0 0 50px rgba(212, 175, 55, 0.9);
-            z-index: 999;
-            /* Animation simulant la marche et l'approche vers l'avant-plan */
+            z-index: 10;
             animation: marcheVersNous 1.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
             animation-delay: 0.2s;
         }
@@ -80,15 +92,15 @@
         @keyframes marcheVersNous {
             0% {
                 top: 42%;
-                transform: translate(-50%, -50%) scale(0.1) rotate(0deg);
+                transform: translate(-50%, -50%) scale(0.1);
                 opacity: 0;
             }
             50% {
                 opacity: 1;
             }
             100% {
-                top: 68%; /* S'avance tout à fait au premier plan */
-                transform: translate(-50%, -50%) scale(1) rotate(0deg);
+                top: 70%;
+                transform: translate(-50%, -50%) scale(1);
                 opacity: 1;
             }
         }
@@ -138,19 +150,19 @@
 </head>
 <body>
 
-    <!-- 1. LA FAÇADE -->
+    <!-- 1. LA FAÇADE (Plein écran) -->
     <div id="conteneur-de-facade" class="page-container" onclick="entrerDansLInstitut()">
         <img src="facade.jpg" alt="Façade de l'Institut" class="image-institut">
-        <h1>INSTITUT PICUBE - &pi;&sup3;</h1>
-        <p><em>Cliquez n'importe où sur la façade pour entrer dans le hall</em></p>
+        <div class="overlay-content">
+            <h1>INSTITUT PICUBE - &pi;&sup3;</h1>
+            <p><em>Cliquez n'importe où pour entrer dans le hall</em></p>
+        </div>
     </div>
 
-    <!-- 2. LE HALL -->
+    <!-- 2. LE HALL (Plein écran) -->
     <div id="conteneur-de-hall" class="page-container" onclick="event.stopPropagation();">
-        <h2>Hall Circulaire de l'Institut</h2>
         <img src="hall.jpg" alt="Hall Circulaire" class="image-institut">
-        <p>Bienvenue au cœur de l'Institut Pi au Cube.</p>
-
+        
         <!-- PI QUI SE DÉTACHE DE LA STATUE ET S'AVANCE VERS NOUS -->
         <div id="avatar-accueil">
             <img src="logopi.jpg" alt="Avatar PiCube">
