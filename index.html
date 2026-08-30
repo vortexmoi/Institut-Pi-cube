@@ -131,7 +131,7 @@
             font-weight: bold;
         }
 
-        /* --- NAVIGATION LATÉRALE DISCRÈTE (Flèches gauche / centre / droite) --- */
+        /* --- NAVIGATION LATÉRALE DISCRÈTE --- */
         .navigation-laterale {
             position: absolute;
             top: 50%;
@@ -148,13 +148,8 @@
             text-align: center;
         }
 
-        .navigation-gauche {
-            left: 20px;
-        }
-
-        .navigation-droite {
-            right: 20px;
-        }
+        .navigation-gauche { left: 20px; }
+        .navigation-droite { right: 20px; }
 
         .navigation-centre-haut {
             position: absolute;
@@ -280,7 +275,6 @@
         
         <div id="canvas-container"></div>
 
-        <!-- Galerie Portraits Haut -->
         <div class="galerie-portraits">
             <div class="cadre-portrait" onclick="interagirGenie('Albert Einstein')">
                 <img src="Albert Einstein.jpg" alt="Albert Einstein">
@@ -308,7 +302,6 @@
             </div>
         </div>
         
-        <!-- Navigation Discrète sur les côtés et en haut pour dégager le centre du Hall -->
         <div class="navigation-laterale navigation-gauche">
             <span style="font-size:0.75rem; font-weight:bold;">Secteur</span>
             <a href="energie.html" class="bouton-couloir">← Énergie</a>
@@ -323,7 +316,6 @@
             <a href="medecine.html" class="bouton-couloir">Médecine →</a>
         </div>
 
-        <!-- Galerie Portraits Bas -->
         <div class="galerie-portraits galerie-bas">
             <div class="cadre-portrait" onclick="interagirGenie('Joseph Fourier')">
                 <img src="Joseph Fourier (1768-1830).jpg" alt="Joseph Fourier">
@@ -351,7 +343,6 @@
             </div>
         </div>
 
-        <!-- Bulle de dialogue blanche style BD -->
         <div id="avatar-ui">
             <div class="bulle-dialogue">
                 <h3>Avatar Pi</h3>
@@ -362,7 +353,7 @@
     </div>
 
     <script>
-        let scene, camera, renderer, avatarMesh;
+        let scene, camera, renderer, avatarGroup;
         let animationEnCours = false;
         let animationActive3D = true;
 
@@ -388,36 +379,54 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
             container.appendChild(renderer.domElement);
 
-            const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.9);
             scene.add(ambientLight);
 
-            const pointLight = new THREE.PointLight(0xd4af37, 3, 50);
-            pointLight.position.set(0, 2, 3);
+            const pointLight = new THREE.PointLight(0xd4af37, 3.5, 50);
+            pointLight.position.set(0, 2, 4);
             scene.add(pointLight);
+
+            // Groupe 3D pour assembler le logo Pi texturé avec un relief sculpté
+            avatarGroup = new THREE.Group();
 
             const textureLoader = new THREE.TextureLoader();
             textureLoader.load('logopi.jpg', (texture) => {
-                const geometry = new THREE.PlaneGeometry(1.4, 1.4);
-                const material = new THREE.MeshBasicMaterial({ 
-                    map: texture, 
-                    transparent: true 
-                });
-                avatarMesh = new THREE.Mesh(geometry, material);
-                avatarMesh.position.set(-1.2, -0.1, -4);
-                scene.add(avatarMesh);
+                // Plaque de fond sculptée avec relief biseauté (donne de l'épaisseur 3D)
+                const geometry = new THREE.BoxGeometry(1.4, 1.4, 0.15);
+                const materials = [
+                    new THREE.MeshStandardMaterial({ color: 0x1f2937 }), // Côtés
+                    new THREE.MeshStandardMaterial({ color: 0x1f2937 }), // Côtés
+                    new THREE.MeshStandardMaterial({ color: 0x1f2937 }), // Côtés
+                    new THREE.MeshStandardMaterial({ color: 0x1f2937 }), // Côtés
+                    new THREE.MeshBasicMaterial({ map: texture }),      // Face avant avec le logo Pi et son 3
+                    new THREE.MeshStandardMaterial({ color: 0xd4af37 })  // Dos doré
+                ];
+                
+                const meshPlaque = new THREE.Mesh(geometry, materials);
+                avatarGroup.add(meshPlaque);
+
+                // Ajout d'un anneau lumineux doré autour du logo pour renforcer l'effet 3D magique
+                const ringGeo = new THREE.RingGeometry(0.85, 0.92, 32);
+                const ringMat = new THREE.MeshBasicMaterial({ color: 0xd4af37, side: THREE.DoubleSide, transparent: true, opacity: 0.8 });
+                const ringMesh = new THREE.Mesh(ringGeo, ringMat);
+                ringMesh.position.z = 0.08;
+                avatarGroup.add(ringMesh);
+
+                avatarGroup.position.set(-1.2, -0.1, -4); // Point de départ au fond de la statue
+                scene.add(avatarGroup);
 
                 animationEnCours = true;
                 animerSortie3D();
             }, undefined, (err) => {
-                console.error("Erreur lors du chargement de logopi.jpg", err);
+                console.error("Erreur chargement logopi.jpg", err);
             });
         }
 
         function animerSortie3D() {
-            if (animationEnCours && avatarMesh && avatarMesh.position.z < 0.8) {
-                avatarMesh.position.z += 0.035;
-                avatarMesh.rotation.y += 0.008;
-            } else if (animationEnCours && avatarMesh && avatarMesh.position.z >= 0.8) {
+            if (animationEnCours && avatarGroup && avatarGroup.position.z < 0.8) {
+                avatarGroup.position.z += 0.035; // Avance vers l'écran
+                avatarGroup.rotation.y += 0.008; // Effet de rotation fluide en 3D
+            } else if (animationEnCours && avatarGroup && avatarGroup.position.z >= 0.8) {
                 animationEnCours = false;
                 document.getElementById('avatar-ui').style.opacity = '1';
             }
@@ -438,8 +447,8 @@
             }
             animationEnCours = true;
             let timerRecul = setInterval(() => {
-                if (avatarMesh && avatarMesh.position.z > -4) {
-                    avatarMesh.position.z -= 0.1;
+                if (avatarGroup && avatarGroup.position.z > -4) {
+                    avatarGroup.position.z -= 0.1;
                     renderer.render(scene, camera);
                 } else {
                     clearInterval(timerRecul);
