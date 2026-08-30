@@ -2,7 +2,8 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Institut PiCube - Entrée</title>
+    <title>Institut PiCube - Immersion 3D</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
         html, body {
             margin: 0;
@@ -27,9 +28,9 @@
             align-items: center;
             cursor: pointer;
             box-sizing: border-box;
+            z-index: 10;
         }
 
-        /* Images plein écran */
         .image-institut {
             position: absolute;
             top: 0;
@@ -40,7 +41,6 @@
             z-index: 1;
         }
 
-        /* Textes et indications par-dessus l'image en plein écran */
         .overlay-content {
             position: relative;
             z-index: 2;
@@ -65,18 +65,27 @@
             color: #ffffff;
         }
         
-        /* Écran du hall caché par défaut */
         #conteneur-de-hall {
             display: none;
             justify-content: flex-start;
             flex-direction: column;
             overflow-y: auto;
+            z-index: 5;
         }
 
-        /* --- GALERIE DES GÉNIES --- */
+        #canvas-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 2;
+            pointer-events: none;
+        }
+
         .galerie-portraits {
             position: relative;
-            z-index: 5;
+            z-index: 20;
             display: flex;
             justify-content: center;
             gap: 15px;
@@ -122,13 +131,11 @@
             font-weight: bold;
         }
 
-        /* --- L'EFFET DE MARCHE DEPUIS LA STATUE --- */
-        #avatar-accueil {
+        #avatar-ui {
             position: absolute;
-            top: 42%;
+            top: 65%;
             left: 50%;
-            transform: translate(-50%, -50%) scale(0.1);
-            opacity: 0;
+            transform: translate(-50%, -50%);
             display: flex;
             align-items: center;
             background: rgba(5, 11, 20, 0.95);
@@ -136,40 +143,17 @@
             border-radius: 15px;
             padding: 15px 25px;
             box-shadow: 0 0 50px rgba(212, 175, 55, 0.9);
-            z-index: 10;
-            animation: marcheVersNous 1.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-            animation-delay: 0.2s;
+            z-index: 25;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
         }
 
-        @keyframes marcheVersNous {
-            0% {
-                top: 42%;
-                transform: translate(-50%, -50%) scale(0.1);
-                opacity: 0;
-            }
-            50% {
-                opacity: 1;
-            }
-            100% {
-                top: 50%;
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 1;
-            }
-        }
-
-        @keyframes lévitationMarche {
-            0% { transform: translateY(0) rotate(-1deg); filter: drop-shadow(0 0 8px #d4af37); }
-            50% { transform: translateY(-8px) rotate(1deg); filter: drop-shadow(0 0 20px #d4af37); }
-            100% { transform: translateY(0) rotate(-1deg); filter: drop-shadow(0 0 8px #d4af37); }
-        }
-
-        #avatar-accueil img {
-            width: 90px;
+        #avatar-ui img {
+            width: 70px;
             height: auto;
             margin-right: 15px;
-            border: none;
-            box-shadow: none;
-            animation: lévitationMarche 1.5s ease-in-out infinite alternate;
+            border-radius: 50%;
+            border: 2px solid #d4af37;
         }
 
         .bulle-dialogue {
@@ -198,11 +182,48 @@
         .btn-fermer:hover {
             background: #fff;
         }
+
+        .zone-navigation {
+            position: relative;
+            z-index: 20;
+            margin: auto auto;
+            text-align: center;
+            background: rgba(5, 11, 20, 0.85);
+            padding: 20px 30px;
+            border-radius: 12px;
+            border: 1px solid #d4af37;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .couloirs {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .bouton-couloir {
+            background-color: #1f2937;
+            border: 1px solid #d4af37;
+            color: #f0f4f8;
+            padding: 10px 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .bouton-couloir:hover {
+            background-color: #d4af37;
+            color: #0b0f19;
+        }
     </style>
 </head>
 <body>
 
-    <!-- 1. LA FAÇADE (Plein écran) -->
     <div id="conteneur-de-facade" class="page-container" onclick="entrerDansLInstitut()">
         <img src="facade.jpg" alt="Façade de l'Institut" class="image-institut">
         <div class="overlay-content">
@@ -211,11 +232,11 @@
         </div>
     </div>
 
-    <!-- 2. LE HALL (Plein écran) -->
-    <div id="conteneur-de-hall" class="page-container" onclick="event.stopPropagation();">
+    <div id="conteneur-de-hall" class="page-container">
         <img src="hall.jpg" alt="Hall Circulaire" class="image-institut">
         
-        <!-- Portraits du Haut -->
+        <div id="canvas-container"></div>
+
         <div class="galerie-portraits">
             <div class="cadre-portrait" onclick="interagirGenie('Albert Einstein')">
                 <img src="Albert Einstein.jpg" alt="Albert Einstein">
@@ -243,17 +264,16 @@
             </div>
         </div>
         
-        <!-- PI QUI SE DÉTACHE DE LA STATUE ET S'AVANCE VERS NOUS -->
-        <div id="avatar-accueil">
-            <img src="logopi.jpg" alt="Avatar PiCube">
-            <div class="bulle-dialogue">
-                <h3>PiCube (Guide de l'Institut)</h3>
-                <p id="texte-avatar">😊 Bonjour ! Comment puis-je vous aider ?</p>
-                <button class="btn-fermer" onclick="fermerAccueil()">Entrer dans l'Institut</button>
+        <div class="zone-navigation">
+            <h2>Hall Circulaire Principal</h2>
+            <p>Empruntez les couloirs de circulation :</p>
+            <div class="couloirs">
+                <a href="energie.html" class="bouton-couloir">← Énergie (Gauche)</a>
+                <a href="espace.html" class="bouton-couloir">↑ Espace (Central)</a>
+                <a href="medecine.html" class="bouton-couloir">Médecine (Droite) →</a>
             </div>
         </div>
 
-        <!-- Portraits du Bas -->
         <div class="galerie-portraits galerie-bas">
             <div class="cadre-portrait" onclick="interagirGenie('Joseph Fourier')">
                 <img src="Joseph Fourier (1768-1830).jpg" alt="Joseph Fourier">
@@ -280,34 +300,118 @@
                 <span>Maxwell</span>
             </div>
         </div>
+
+        <div id="avatar-ui">
+            <img src="logopi.jpg" alt="Avatar PiCube">
+            <div class="bulle-dialogue">
+                <h3>Avatar PII (Guide 3D)</h3>
+                <p id="texte-avatar">😊 Bonjour ! Comment puis-je vous faire découvrir l'Institut Pi au cube ?</p>
+                <button class="btn-fermer" onclick="fermerAccueil()">Explorer l'Institut</button>
+            </div>
+        </div>
     </div>
 
     <script>
+        let scene, camera, renderer, avatarMesh;
+        let animationEnCours = false;
+        let animationActive3D = true;
+
         function entrerDansLInstitut() {
-            var facade = document.getElementById("conteneur-de-facade");
-            var hall = document.getElementById("conteneur-de-hall");
+            document.getElementById("conteneur-de-facade").style.display = "none";
+            document.getElementById("conteneur-de-hall").style.display = "flex";
             
-            if (facade && hall) {
-                facade.style.display = "none";
-                hall.style.display = "flex";
+            if (!scene) {
+                init3D();
+            } else {
+                animationEnCours = true;
+            }
+        }
+
+        function init3D() {
+            const container = document.getElementById('canvas-container');
+            
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(0, 0, 5);
+
+            renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            container.appendChild(renderer.domElement);
+
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+            scene.add(ambientLight);
+
+            const pointLight = new THREE.PointLight(0xd4af37, 2.5, 50);
+            pointLight.position.set(0, 2, 3);
+            scene.add(pointLight);
+
+            const geometry = new THREE.BoxGeometry(0.9, 1.6, 0.3);
+            const material = new THREE.MeshStandardMaterial({ 
+                color: 0x1f2937, 
+                roughness: 0.2, 
+                metalness: 0.9,
+                emissive: 0xd4af37,
+                emissiveIntensity: 0.3
+            });
+            avatarMesh = new THREE.Mesh(geometry, material);
+            avatarMesh.position.set(0, -0.2, -4);
+            scene.add(avatarMesh);
+
+            animationEnCours = true;
+            animerSortie3D();
+        }
+
+        function animerSortie3D() {
+            if (animationEnCours && avatarMesh.position.z < 1.2) {
+                avatarMesh.position.z += 0.035;
+                avatarMesh.rotation.y += 0.01;
+            } else if (animationEnCours && avatarMesh.position.z >= 1.2) {
+                animationEnCours = false;
+                document.getElementById('avatar-ui').style.opacity = '1';
+            }
+
+            if (renderer && scene && camera) {
+                renderer.render(scene, camera);
+            }
+            if (animationActive3D) {
+                requestAnimationFrame(animerSortie3D);
             }
         }
 
         function fermerAccueil() {
-            var avatar = document.getElementById("avatar-accueil");
-            if (avatar) {
-                avatar.style.display = "none";
+            const ui = document.getElementById("avatar-ui");
+            if (ui) {
+                ui.style.opacity = '0';
+                setTimeout(() => { ui.style.display = 'none'; }, 500);
             }
+            animationEnCours = true;
+            let timerRecul = setInterval(() => {
+                if (avatarMesh && avatarMesh.position.z > -4) {
+                    avatarMesh.position.z -= 0.1;
+                    renderer.render(scene, camera);
+                } else {
+                    clearInterval(timerRecul);
+                }
+            }, 20);
         }
 
         function interagirGenie(nom) {
-            var avatar = document.getElementById("avatar-accueil");
-            var texte = document.getElementById("texte-avatar");
-            if (avatar && texte) {
-                avatar.style.display = "flex";
-                texte.innerHTML = `✨ Vous contemplez le portrait de <strong>${nom}</strong>, illustre génie de l'Institut.`;
+            const ui = document.getElementById("avatar-ui");
+            const texte = document.getElementById("texte-avatar");
+            if (ui && texte) {
+                ui.style.display = 'flex';
+                ui.style.opacity = '1';
+                texte.innerHTML = `✨ Vous contemplez le véritable portrait de <strong>${nom}</strong>, illustre génie de l'Institut.`;
             }
         }
+
+        window.addEventListener('resize', () => {
+            if (camera && renderer) {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            }
+        });
     </script>
 </body>
 </html>
