@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <title>Institut PiCube - Protocole P.H.O.T.O.N.</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/FontLoader.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/geometries/TextGeometry.js"></script>
     <style>
         html, body {
             margin: 0;
@@ -282,7 +280,7 @@
                 <img src="Albert Einstein.jpg" alt="Albert Einstein">
                 <span>Einstein</span>
             </div>
-            <div class="cadre-portrait" onclick="interagirGenie('Pierre et Marie Curie')">
+            <div class="cadre-portrait" onclick="intergiarGenie('Pierre et Marie Curie')">
                 <img src="Pierre et Marie Curie.jpg" alt="Pierre et Marie Curie">
                 <span>Les Curie</span>
             </div>
@@ -339,7 +337,7 @@
                 <img src="Heinrich-Hertz.jpg" alt="Heinrich Hertz">
                 <span>Hertz</span>
             </div>
-            <div class="cadre-portrait" onclick="interagirGenie('James Clerk Maxwell')">
+            <div class="cadre-portrait" onclick="interagirGenie('James Clerk Maxwell')|">
                 <img src="James-Clerk-Maxwell-1831-1879.jpg" alt="James Clerk Maxwell">
                 <span>Maxwell</span>
             </div>
@@ -355,7 +353,7 @@
     </div>
 
     <script>
-        let scene, camera, renderer, piGroup;
+        let scene, camera, renderer, logoMesh;
         let animationEnCours = false;
         let animationActive3D = true;
 
@@ -381,68 +379,40 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
             container.appendChild(renderer.domElement);
 
-            const ambientLight = new THREE.AmbientLight(0xffffff, 1.0);
+            const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
             scene.add(ambientLight);
 
-            const pointLight = new THREE.PointLight(0xd4af37, 4, 50);
+            const pointLight = new THREE.PointLight(0xd4af37, 3, 50);
             pointLight.position.set(0, 2, 4);
             scene.add(pointLight);
 
-            piGroup = new THREE.Group();
-
-            const fontLoader = new THREE.FontLoader();
-            fontLoader.load('https://threejs.org/examples/fonts/helvetiker_bold.typeface.json', function (font) {
+            const textureLoader = new THREE.TextureLoader();
+            // Remplacez 'logo_picube.png' par le nom de votre fichier d'image transparent contenant exactement votre sculpture PiCube
+            textureLoader.load('logo_picube.png', (texture) => {
+                const geometry = new THREE.PlaneGeometry(2.0, 2.0);
+                const material = new THREE.MeshStandardMaterial({ 
+                    map: texture, 
+                    transparent: true,
+                    roughness: 0.3,
+                    metalness: 0.5
+                });
                 
-                const materialOr = new THREE.MeshStandardMaterial({ 
-                    color: 0xd4af37, 
-                    metalness: 0.85, 
-                    roughness: 0.2 
-                });
-
-                // Génération du Pi extrudé en relief 3D
-                const textGeoPi = new THREE.TextGeometry('PI', {
-                    font: font,
-                    size: 0.8,
-                    height: 0.2, // Vraie épaisseur/volume 3D
-                    curveSegments: 12,
-                    bevelEnabled: true,
-                    bevelThickness: 0.03,
-                    bevelSize: 0.02,
-                    bevelSegments: 5
-                });
-                textGeoPi.center();
-                const meshPi = new THREE.Mesh(textGeoPi, materialOr);
-                meshPi.position.set(-0.2, 0, 0);
-                piGroup.add(meshPi);
-
-                // Génération de l'exposant 3 extrudé en relief 3D
-                const textGeo3 = new THREE.TextGeometry('3', {
-                    font: font,
-                    size: 0.4,
-                    height: 0.15, // Épaisseur 3D proportionnelle
-                    curveSegments: 12,
-                    bevelEnabled: true,
-                    bevelThickness: 0.02,
-                    bevelSize: 0.01,
-                    bevelSegments: 4
-                });
-                const mesh3 = new THREE.Mesh(textGeo3, materialOr);
-                mesh3.position.set(0.4, 0.3, 0.05); // Positionné précisément en tant qu'exposant
-                piGroup.add(mesh3);
-
-                piGroup.position.set(-1.2, -0.1, -4); // Point de départ au fond de la perspective
-                scene.add(piGroup);
+                logoMesh = new THREE.Mesh(geometry, material);
+                logoMesh.position.set(-1.2, -0.1, -4); // Point de départ au fond de la perspective du hall
+                scene.add(logoMesh);
 
                 animationEnCours = true;
                 animerSortie3D();
+            }, undefined, (err) => {
+                console.warn("Image transparente non trouvée, utilisation d'une géométrie de secours ou vérifiez le nom du fichier image.");
             });
         }
 
         function animerSortie3D() {
-            if (animationEnCours && piGroup && piGroup.position.z < 0.8) {
-                piGroup.position.z += 0.035; // Avance vers l'écran
-                piGroup.rotation.y += 0.008; // Rotation fluide en relief
-            } else if (animationEnCours && piGroup && piGroup.position.z >= 0.8) {
+            if (animationEnCours && logoMesh && logoMesh.position.z < 0.8) {
+                logoMesh.position.z += 0.035; // Avance vers l'écran en douceur
+                logoMesh.rotation.y += 0.005; // lègere rotation dynamique
+            } else if (animationEnCours && logoMesh && logoMesh.position.z >= 0.8) {
                 animationEnCours = false;
                 document.getElementById('avatar-ui').style.opacity = '1';
             }
@@ -463,8 +433,8 @@
             }
             animationEnCours = true;
             let timerRecul = setInterval(() => {
-                if (piGroup && piGroup.position.z > -4) {
-                    piGroup.position.z -= 0.1;
+                if (logoMesh && logoMesh.position.z > -4) {
+                    logoMesh.position.z -= 0.1;
                     renderer.render(scene, camera);
                 } else {
                     clearInterval(timerRecul);
