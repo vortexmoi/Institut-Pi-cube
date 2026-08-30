@@ -67,9 +67,9 @@
         
         #conteneur-de-hall {
             display: none;
-            justify-content: flex-start;
+            justify-content: space-between;
             flex-direction: column;
-            overflow-y: auto;
+            overflow: hidden;
             z-index: 5;
         }
 
@@ -89,7 +89,7 @@
             display: flex;
             justify-content: center;
             gap: 15px;
-            padding: 12px;
+            padding: 10px;
             background: rgba(5, 11, 20, 0.85);
             flex-wrap: wrap;
             border-bottom: 2px solid #d4af37;
@@ -106,7 +106,7 @@
         .cadre-portrait {
             text-align: center;
             cursor: pointer;
-            width: 70px;
+            width: 65px;
             transition: transform 0.3s ease;
         }
 
@@ -115,20 +115,78 @@
         }
 
         .cadre-portrait img {
-            width: 55px;
-            height: 55px;
+            width: 50px;
+            height: 50px;
             object-fit: cover;
             border: 2px solid #d4af37;
             border-radius: 50%;
             display: block;
-            margin: 0 auto 4px auto;
+            margin: 0 auto 3px auto;
             box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
         }
 
         .cadre-portrait span {
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             color: #d4af37;
             font-weight: bold;
+        }
+
+        /* --- NAVIGATION LATÉRALE DISCRÈTE (Flèches gauche / centre / droite) --- */
+        .navigation-laterale {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 20;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding: 15px;
+            background: rgba(5, 11, 20, 0.85);
+            border: 1px solid #d4af37;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+            text-align: center;
+        }
+
+        .navigation-gauche {
+            left: 20px;
+        }
+
+        .navigation-droite {
+            right: 20px;
+        }
+
+        .navigation-centre-haut {
+            position: absolute;
+            top: 130px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 20;
+            background: rgba(5, 11, 20, 0.85);
+            padding: 8px 20px;
+            border: 1px solid #d4af37;
+            border-radius: 20px;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+            text-align: center;
+        }
+
+        .bouton-couloir {
+            background-color: #1f2937;
+            border: 1px solid #d4af37;
+            color: #f0f4f8;
+            padding: 8px 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .bouton-couloir:hover {
+            background-color: #d4af37;
+            color: #0b0f19;
         }
 
         /* --- BULLE DE DIALOGUE BLANCHE STYLE BD --- */
@@ -205,44 +263,6 @@
             background: #1f2937;
             color: #d4af37;
         }
-
-        .zone-navigation {
-            position: relative;
-            z-index: 20;
-            margin: auto auto;
-            text-align: center;
-            background: rgba(5, 11, 20, 0.85);
-            padding: 20px 30px;
-            border-radius: 12px;
-            border: 1px solid #d4af37;
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
-        }
-
-        .couloirs {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin-top: 10px;
-            flex-wrap: wrap;
-        }
-
-        .bouton-couloir {
-            background-color: #1f2937;
-            border: 1px solid #d4af37;
-            color: #f0f4f8;
-            padding: 10px 18px;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-
-        .bouton-couloir:hover {
-            background-color: #d4af37;
-            color: #0b0f19;
-        }
     </style>
 </head>
 <body>
@@ -260,6 +280,7 @@
         
         <div id="canvas-container"></div>
 
+        <!-- Galerie Portraits Haut -->
         <div class="galerie-portraits">
             <div class="cadre-portrait" onclick="interagirGenie('Albert Einstein')">
                 <img src="Albert Einstein.jpg" alt="Albert Einstein">
@@ -287,16 +308,22 @@
             </div>
         </div>
         
-        <div class="zone-navigation">
-            <h2>Hall Circulaire Principal</h2>
-            <p>Empruntez les couloirs de circulation :</p>
-            <div class="couloirs">
-                <a href="energie.html" class="bouton-couloir">← Énergie (Gauche)</a>
-                <a href="espace.html" class="bouton-couloir">↑ Espace (Central)</a>
-                <a href="medecine.html" class="bouton-couloir">Médecine (Droite) →</a>
-            </div>
+        <!-- Navigation Discrète sur les côtés et en haut pour dégager le centre du Hall -->
+        <div class="navigation-laterale navigation-gauche">
+            <span style="font-size:0.75rem; font-weight:bold;">Secteur</span>
+            <a href="energie.html" class="bouton-couloir">← Énergie</a>
         </div>
 
+        <div class="navigation-centre-haut">
+            <a href="espace.html" class="bouton-couloir">↑ Espace (Central)</a>
+        </div>
+
+        <div class="navigation-laterale navigation-droite">
+            <span style="font-size:0.75rem; font-weight:bold;">Secteur</span>
+            <a href="medecine.html" class="bouton-couloir">Médecine →</a>
+        </div>
+
+        <!-- Galerie Portraits Bas -->
         <div class="galerie-portraits galerie-bas">
             <div class="cadre-portrait" onclick="interagirGenie('Joseph Fourier')">
                 <img src="Joseph Fourier (1768-1830).jpg" alt="Joseph Fourier">
@@ -324,6 +351,7 @@
             </div>
         </div>
 
+        <!-- Bulle de dialogue blanche style BD -->
         <div id="avatar-ui">
             <div class="bulle-dialogue">
                 <h3>Avatar Pi</h3>
