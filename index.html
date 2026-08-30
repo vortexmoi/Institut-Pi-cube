@@ -27,35 +27,41 @@
             align-items: center;
             cursor: pointer;
             box-sizing: border-box;
-            padding: 20px;
+            padding: 10px;
         }
 
-        /* Images élargies et harmonieuses */
+        .image-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
         .image-institut {
-            width: 90vw;
-            max-width: 1250px;
-            height: 75vh;
-            max-height: 720px;
+            display: block;
+            width: 85vw;
+            max-width: 1100px;
+            height: 65vh;
+            max-height: 600px;
             object-fit: cover;
             border: 3px solid #d4af37;
             border-radius: 12px;
             box-shadow: 0 0 40px rgba(212, 175, 55, 0.5);
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
 
         .titre-container {
             text-align: center;
+            margin-bottom: 5px;
         }
 
         h1, h2 {
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             letter-spacing: 2px;
-            margin: 0 0 5px 0;
+            margin: 0 0 3px 0;
             color: #d4af37;
         }
 
         p {
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             margin: 0;
             color: #ffffff;
         }
@@ -63,65 +69,39 @@
         /* Écran du hall caché par défaut */
         #conteneur-de-hall {
             display: none;
-            position: relative;
         }
 
-        /* --- CONTENEUR POUR LES PASSERELLES DU HALL --- */
-        .hall-wrapper {
-            position: relative;
-            display: inline-block;
-        }
-
-        /* Zones cliquables (Passerelles) superposées sur l'image du hall */
+        /* --- PASSERELLES SUR LE HALL --- */
         .passerelle {
             position: absolute;
             z-index: 5;
-            border: 2px dashed rgba(212, 175, 55, 0.4);
-            border-radius: 8px;
-            background: rgba(212, 175, 55, 0.1);
+            border: 2px dashed rgba(212, 175, 55, 0.6);
+            border-radius: 6px;
+            background: rgba(212, 175, 55, 0.12);
             cursor: pointer;
             transition: all 0.3s ease;
         }
 
         .passerelle:hover {
-            background: rgba(212, 175, 55, 0.3);
-            border-color: #d4af37;
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.8);
+            background: rgba(212, 175, 55, 0.35);
+            border-color: #fff;
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.9);
         }
 
-        /* Positions indicatives des trois couloirs sur l'image du hall */
-        #passerelle-gauche {
-            top: 40%;
-            left: 5%;
-            width: 20%;
-            height: 45%;
-        }
+        #passerelle-gauche { top: 35%; left: 12%; width: 16%; height: 40%; }
+        #passerelle-milieu { top: 22%; left: 42%; width: 16%; height: 30%; }
+        #passerelle-droite { top: 35%; right: 12%; width: 16%; height: 40%; }
 
-        #passerelle-milieu {
-            top: 25%;
-            left: 40%;
-            width: 20%;
-            height: 35%;
-        }
-
-        #passerelle-droite {
-            top: 40%;
-            right: 5%;
-            width: 20%;
-            height: 45%;
-        }
-
-        /* Étiquette affichée au survol des passerelles */
         .passerelle::after {
             content: attr(data-tooltip);
             position: absolute;
-            bottom: 10px;
+            bottom: 8px;
             left: 50%;
             transform: translateX(-50%);
             background: #050b14;
             color: #d4af37;
-            padding: 4px 8px;
-            font-size: 0.75rem;
+            padding: 3px 6px;
+            font-size: 0.7rem;
             border: 1px solid #d4af37;
             border-radius: 4px;
             white-space: nowrap;
@@ -129,9 +109,46 @@
             transition: opacity 0.3s;
             pointer-events: none;
         }
+        .passerelle:hover::after { opacity: 1; }
 
-        .passerelle:hover::after {
-            opacity: 1;
+        /* --- GALERIE DES GÉNIES (PORTRAITS) --- */
+        .galerie-portraits {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            max-width: 1100px;
+            margin-top: 5px;
+        }
+
+        .cadre-portrait {
+            width: 55px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .cadre-portrait:hover {
+            transform: scale(1.15);
+        }
+
+        .cadre-portrait img {
+            width: 45px;
+            height: 45px;
+            object-fit: cover;
+            border: 2px solid #d4af37;
+            border-radius: 50%;
+            box-shadow: 0 0 8px rgba(212, 175, 55, 0.6);
+        }
+
+        .cadre-portrait span {
+            display: block;
+            font-size: 0.6rem;
+            color: #d4af37;
+            margin-top: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         /* --- L'EFFET DE MARCHE DEPUIS LA STATUE --- */
@@ -154,19 +171,9 @@
         }
 
         @keyframes marcheVersNous {
-            0% {
-                top: 40%;
-                transform: translate(-50%, -50%) scale(0.1);
-                opacity: 0;
-            }
-            50% {
-                opacity: 1;
-            }
-            100% {
-                top: 65%;
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 1;
-            }
+            0% { top: 40%; transform: translate(-50%, -50%) scale(0.1); opacity: 0; }
+            50% { opacity: 1; }
+            100% { top: 65%; transform: translate(-50%, -50%) scale(1); opacity: 1; }
         }
 
         @keyframes lévitationMarche {
@@ -176,7 +183,7 @@
         }
 
         #avatar-accueil img {
-            width: 90px;
+            width: 80px;
             height: auto;
             margin-right: 15px;
             border: none;
@@ -184,32 +191,19 @@
             animation: lévitationMarche 1.5s ease-in-out infinite alternate;
         }
 
-        .bulle-dialogue {
-            text-align: left;
-        }
-        .bulle-dialogue h3 {
-            margin: 0 0 5px 0;
-            font-size: 1.1rem;
-            color: #d4af37;
-        }
-        .bulle-dialogue p {
-            margin: 0 0 10px 0;
-            font-size: 0.95rem;
-            color: #ffffff;
-        }
+        .bulle-dialogue h3 { margin: 0 0 5px 0; font-size: 1.1rem; color: #d4af37; }
+        .bulle-dialogue p { margin: 0 0 10px 0; font-size: 0.9rem; color: #ffffff; }
         .btn-fermer {
             background: #d4af37;
             color: #050b14;
             border: none;
-            padding: 6px 14px;
+            padding: 5px 12px;
             font-weight: bold;
             border-radius: 4px;
             cursor: pointer;
             transition: background 0.2s;
         }
-        .btn-fermer:hover {
-            background: #fff;
-        }
+        .btn-fermer:hover { background: #fff; }
     </style>
 </head>
 <body>
@@ -225,10 +219,10 @@
 
     <!-- 2. LE HALL -->
     <div id="conteneur-de-hall" class="page-container" onclick="event.stopPropagation();">
-        <div class="hall-wrapper">
+        <div class="image-wrapper">
             <img src="hall.jpg" alt="Hall Circulaire" class="image-institut">
             
-            <!-- LES TROIS PASSERELLES INTERACTIVES -->
+            <!-- LES TROIS PASSERELLES -->
             <div id="passerelle-gauche" class="passerelle" data-tooltip="Couloir Énergétique" onclick="accederPasserelle('Énergie')"></div>
             <div id="passerelle-milieu" class="passerelle" data-tooltip="Couloir Spatial" onclick="accederPasserelle('Espace')"></div>
             <div id="passerelle-droite" class="passerelle" data-tooltip="Couloir Médical" onclick="accederPasserelle('Médecine')"></div>
@@ -236,6 +230,50 @@
 
         <div class="titre-container">
             <h2>Hall Circulaire de l'Institut</h2>
+        </div>
+
+        <!-- GALERIE DES PORTRAITS DES GÉNIES -->
+        <div class="galerie-portraits">
+            <div class="cadre-portrait" onclick="clicGenie('Einstein')">
+                <img src="einstein.jpg" alt="Einstein">
+                <span>Einstein</span>
+            </div>
+            <div class="cadre-portrait" onclick="clicGenie('Tesla')">
+                <img src="tesla.jpg" alt="Tesla">
+                <span>Tesla</span>
+            </div>
+            <div class="cadre-portrait" onclick="clicGenie('Mendeleiev')">
+                <img src="mendeleiev.jpg" alt="Mendeleiev">
+                <span>Mendeleiev</span>
+            </div>
+            <div class="cadre-portrait" onclick="clicGenie('Gauss')">
+                <img src="gauss.jpg" alt="Gauss">
+                <span>Gauss</span>
+            </div>
+            <div class="cadre-portrait" onclick="clicGenie('Hertz')">
+                <img src="hertz.jpg" alt="Hertz">
+                <span>Hertz</span>
+            </div>
+            <div class="cadre-portrait" onclick="clicGenie('Faraday')">
+                <img src="faraday.jpg" alt="Faraday">
+                <span>Faraday</span>
+            </div>
+            <div class="cadre-portrait" onclick="clicGenie('Fournier')">
+                <img src="fournier.jpg" alt="Fournier">
+                <span>Fournier</span>
+            </div>
+            <div class="cadre-portrait" onclick="clicGenie('Rosen')">
+                <img src="rosen.jpg" alt="Rosen">
+                <span>Rosen</span>
+            </div>
+            <div class="cadre-portrait" onclick="clicGenie('De Broglie')">
+                <img src="debroglie.jpg" alt="De Broglie">
+                <span>De Broglie</span>
+            </div>
+            <div class="cadre-portrait" onclick="clicGenie('Maxwell')">
+                <img src="maxwell.jpg" alt="Maxwell">
+                <span>Maxwell</span>
+            </div>
         </div>
         
         <!-- PI QUI SE DÉTACHE DE LA STATUE ET S'AVANCE VERS NOUS -->
@@ -269,7 +307,10 @@
 
         function accederPasserelle(type) {
             alert("Accès en cours vers le département : " + type);
-            // Vous pourrez remplacer cet alert par le chargement de vos pages dédiées (ex: energie.html, espace.html, medecine.html)
+        }
+
+        function clicGenie(nom) {
+            alert("Vous examinez les travaux de : " + nom + " liés au Protocole P.H.O.T.O.N.");
         }
     </script>
 </body>
