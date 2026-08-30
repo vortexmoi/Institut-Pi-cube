@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Institut Pi au cube - Hall Principal</title>
+    <title>Institut Pi au cube</title>
     <style>
         body {
             margin: 0;
@@ -16,7 +16,6 @@
             min-height: 100vh;
         }
 
-        /* --- Écran de la Façade (Cliquable) --- */
         #vue-facade {
             display: flex;
             flex-direction: column;
@@ -54,14 +53,12 @@
             text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
         }
 
-        /* --- Hall Circulaire (Caché par défaut) --- */
         #vue-hall {
             display: none;
             flex-direction: column;
             min-height: 100vh;
         }
 
-        /* Galerie des portraits (Haut et Bas) */
         .galerie-portraits {
             display: flex;
             justify-content: center;
@@ -99,7 +96,6 @@
             font-weight: bold;
         }
 
-        /* Avatar PII émergeant de la statue */
         .section-avatar {
             display: flex;
             justify-content: center;
@@ -123,14 +119,8 @@
         }
 
         @keyframes apparition-statue {
-            0% {
-                opacity: 0;
-                transform: scale(0.9) translateY(15px);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
+            0% { opacity: 0; transform: scale(0.9) translateY(15px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
         }
 
         .avatar-cercle {
@@ -155,7 +145,6 @@
             line-height: 1.4;
         }
 
-        /* Contenu du Hall */
         .contenu-principal {
             padding: 25px;
             text-align: center;
@@ -173,33 +162,6 @@
             margin: 0 auto 20px auto;
         }
 
-        .passerelles {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 25px;
-            flex-wrap: wrap;
-        }
-
-        .bouton-passerelle {
-            background-color: #111827;
-            border: 2px solid #d4af37;
-            color: #d4af37;
-            padding: 10px 20px;
-            font-weight: bold;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-            text-transform: uppercase;
-            transition: all 0.3s ease;
-        }
-
-        .bouton-passerelle:hover {
-            background-color: #d4af37;
-            color: #0b0f19;
-        }
-
-        /* Couloirs (Gauche, Central, Droite) */
         .zone-couloirs {
             margin-top: 15px;
             padding-top: 15px;
@@ -217,11 +179,12 @@
             background-color: #1f2937;
             border: 1px solid #d4af37;
             color: #f0f4f8;
-            padding: 8px 18px;
+            padding: 10px 20px;
             border-radius: 5px;
             cursor: pointer;
             text-decoration: none;
             font-size: 0.9rem;
+            font-weight: bold;
             transition: background 0.3s ease;
         }
 
@@ -279,26 +242,19 @@
         <div class="section-avatar">
             <div class="avatar-container">
                 <div class="avatar-cercle">Π</div>
-                <div id="texte-avatar"><strong>Avatar PII :</strong> Bonjour, comment puis-je vous faire découvrir l'institut Pi au cube ?</div>
+                <div id="texte-avatar"><strong>Avatar PII :</strong> Bonjour, comment puis-je vous faire découvrir l'Institut Pi au cube ?</div>
             </div>
         </div>
 
         <div class="contenu-principal">
             <h2>Hall Circulaire Principal</h2>
-            <p class="description-hall">Sélectionnez une passerelle ou empruntez les couloirs de circulation :</p>
-            
-            <div class="passerelles">
-                <a href="energie.html" class="bouton-passerelle">Énergie</a>
-                <a href="espace.html" class="bouton-passerelle">Espace</a>
-                <a href="medecine.html" class="bouton-passerelle">Médecine</a>
-            </div>
+            <p class="description-hall">Empruntez l'un des couloirs de circulation pour découvrir les départements :</p>
 
             <div class="zone-couloirs">
-                <p style="color: #d4af37; font-weight: bold; margin-bottom: 12px; font-size: 0.9rem;">ORIENTATION DES COULOIRS</p>
                 <div class="couloirs">
-                    <a href="couloir_gauche.html" class="bouton-couloir">← Couloir Gauche</a>
-                    <a href="couloir_central.html" class="bouton-couloir">↑ Couloir Central</a>
-                    <a href="couloir_droite.html" class="bouton-couloir">Couloir Droite →</a>
+                    <a href="energie.html" class="bouton-couloir">← Couloir Gauche : Énergie</a>
+                    <a href="espace.html" class="bouton-couloir">↑ Couloir Central : Espace</a>
+                    <a href="medecine.html" class="bouton-couloir">Couloir Droite : Médecine →</a>
                 </div>
             </div>
         </div>
@@ -343,7 +299,7 @@
         }
 
         function interagirGenie(nom) {
-            document.getElementById('texte-avatar').innerHTML = `<strong>Avatar PII :</strong> Vous contemplez le profil de <strong>${nom}</strong>. Une source d'inspiration pour l'Institut !`;
+            document.getElementById('texte-avatar').innerHTML = `<strong>Avatar PII :</strong> Vous contemplez le véritable portrait de <strong>${nom}</strong>, génie de l'Institut Pi au cube.`;
         }
     </script>
 
