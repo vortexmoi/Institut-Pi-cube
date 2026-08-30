@@ -27,35 +27,40 @@
             align-items: center;
             cursor: pointer;
             box-sizing: border-box;
-            padding: 20px;
         }
 
-        /* Images à taille équilibrée et élégante */
+        /* Images plein écran */
         .image-institut {
-            width: 85vw;
-            max-width: 1050px;
-            height: 70vh;
-            max-height: 650px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
             object-fit: cover;
-            border: 3px solid #d4af37;
-            border-radius: 12px;
-            box-shadow: 0 0 35px rgba(212, 175, 55, 0.5);
-            margin-bottom: 15px;
+            z-index: 1;
         }
 
-        .titre-container {
+        /* Textes et indications par-dessus l'image en plein écran */
+        .overlay-content {
+            position: relative;
+            z-index: 2;
+            background: rgba(5, 11, 20, 0.8);
+            padding: 20px 40px;
+            border-radius: 10px;
+            border: 2px solid #d4af37;
             text-align: center;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.6);
         }
 
-        h1 {
-            font-size: 1.6rem;
+        h1, h2 {
+            font-size: 2rem;
             letter-spacing: 2px;
-            margin: 0 0 5px 0;
+            margin: 0 0 10px 0;
             color: #d4af37;
         }
 
         p {
-            font-size: 0.95rem;
+            font-size: 1.1rem;
             margin: 0;
             color: #ffffff;
         }
@@ -63,12 +68,64 @@
         /* Écran du hall caché par défaut */
         #conteneur-de-hall {
             display: none;
+            justify-content: flex-start;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        /* --- GALERIE DES GÉNIES --- */
+        .galerie-portraits {
+            position: relative;
+            z-index: 5;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 12px;
+            background: rgba(5, 11, 20, 0.85);
+            flex-wrap: wrap;
+            border-bottom: 2px solid #d4af37;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .galerie-bas {
+            margin-top: auto;
+            border-top: 2px solid #d4af37;
+            border-bottom: none;
+        }
+
+        .cadre-portrait {
+            text-align: center;
+            cursor: pointer;
+            width: 70px;
+            transition: transform 0.3s ease;
+        }
+
+        .cadre-portrait:hover {
+            transform: translateY(-5px);
+        }
+
+        .cadre-portrait img {
+            width: 55px;
+            height: 55px;
+            object-fit: cover;
+            border: 2px solid #d4af37;
+            border-radius: 50%;
+            display: block;
+            margin: 0 auto 4px auto;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+        }
+
+        .cadre-portrait span {
+            font-size: 0.65rem;
+            color: #d4af37;
+            font-weight: bold;
         }
 
         /* --- L'EFFET DE MARCHE DEPUIS LA STATUE --- */
         #avatar-accueil {
             position: absolute;
-            top: 40%;
+            top: 42%;
             left: 50%;
             transform: translate(-50%, -50%) scale(0.1);
             opacity: 0;
@@ -86,7 +143,7 @@
 
         @keyframes marcheVersNous {
             0% {
-                top: 40%;
+                top: 42%;
                 transform: translate(-50%, -50%) scale(0.1);
                 opacity: 0;
             }
@@ -94,7 +151,7 @@
                 opacity: 1;
             }
             100% {
-                top: 65%;
+                top: 50%;
                 transform: translate(-50%, -50%) scale(1);
                 opacity: 1;
             }
@@ -145,20 +202,45 @@
 </head>
 <body>
 
-    <!-- 1. LA FAÇADE -->
+    <!-- 1. LA FAÇADE (Plein écran) -->
     <div id="conteneur-de-facade" class="page-container" onclick="entrerDansLInstitut()">
         <img src="facade.jpg" alt="Façade de l'Institut" class="image-institut">
-        <div class="titre-container">
+        <div class="overlay-content">
             <h1>INSTITUT PICUBE - &pi;&sup3;</h1>
             <p><em>Cliquez n'importe où pour entrer dans le hall</em></p>
         </div>
     </div>
 
-    <!-- 2. LE HALL -->
+    <!-- 2. LE HALL (Plein écran) -->
     <div id="conteneur-de-hall" class="page-container" onclick="event.stopPropagation();">
         <img src="hall.jpg" alt="Hall Circulaire" class="image-institut">
-        <div class="titre-container">
-            <h2>Hall Circulaire de l'Institut</h2>
+        
+        <!-- Portraits du Haut -->
+        <div class="galerie-portraits">
+            <div class="cadre-portrait" onclick="interagirGenie('Albert Einstein')">
+                <img src="Albert Einstein.jpg" alt="Albert Einstein">
+                <span>Einstein</span>
+            </div>
+            <div class="cadre-portrait" onclick="interagirGenie('Pierre et Marie Curie')">
+                <img src="Pierre et Marie Curie.jpg" alt="Pierre et Marie Curie">
+                <span>Les Curie</span>
+            </div>
+            <div class="cadre-portrait" onclick="interagirGenie('Nikola Tesla')">
+                <img src="Nikola_Tesla.jpg" alt="Nikola Tesla">
+                <span>Tesla</span>
+            </div>
+            <div class="cadre-portrait" onclick="interagirGenie('Nathan Rosen')">
+                <img src="Rosen_Nathan.jpg" alt="Nathan Rosen">
+                <span>Rosen</span>
+            </div>
+            <div class="cadre-portrait" onclick="interagirGenie('Louis de Broglie')">
+                <img src="Louis Victor Broglie.jpg" alt="Louis de Broglie">
+                <span>De Broglie</span>
+            </div>
+            <div class="cadre-portrait" onclick="interagirGenie('Michael Faraday')">
+                <img src="Michael_Faraday.jpg" alt="Michael Faraday">
+                <span>Faraday</span>
+            </div>
         </div>
         
         <!-- PI QUI SE DÉTACHE DE LA STATUE ET S'AVANCE VERS NOUS -->
@@ -166,8 +248,36 @@
             <img src="logopi.jpg" alt="Avatar PiCube">
             <div class="bulle-dialogue">
                 <h3>PiCube (Guide de l'Institut)</h3>
-                <p>😊 Bonjour ! Comment puis-je vous aider ?</p>
+                <p id="texte-avatar">😊 Bonjour ! Comment puis-je vous aider ?</p>
                 <button class="btn-fermer" onclick="fermerAccueil()">Entrer dans l'Institut</button>
+            </div>
+        </div>
+
+        <!-- Portraits du Bas -->
+        <div class="galerie-portraits galerie-bas">
+            <div class="cadre-portrait" onclick="interagirGenie('Joseph Fourier')">
+                <img src="Joseph Fourier (1768-1830).jpg" alt="Joseph Fourier">
+                <span>Fourier</span>
+            </div>
+            <div class="cadre-portrait" onclick="interagirGenie('Archimède')">
+                <img src="Archimede.jpg" alt="Archimède">
+                <span>Archimède</span>
+            </div>
+            <div class="cadre-portrait" onclick="interagirGenie('Carl Friedrich Gauss')">
+                <img src="Carl Friedrich Gauss 1840.jpg" alt="Carl Friedrich Gauss">
+                <span>Gauss</span>
+            </div>
+            <div class="cadre-portrait" onclick="interagirGenie('Dmitri Mendeleïev')">
+                <img src="Dmitri_Mendeleev.jpg" alt="Dmitri Mendeleïev">
+                <span>Mendeleïev</span>
+            </div>
+            <div class="cadre-portrait" onclick="interagirGenie('Heinrich Hertz')">
+                <img src="Heinrich-Hertz.jpg" alt="Heinrich Hertz">
+                <span>Hertz</span>
+            </div>
+            <div class="cadre-portrait" onclick="interagirGenie('James Clerk Maxwell')">
+                <img src="James-Clerk-Maxwell-1831-1879.jpg" alt="James Clerk Maxwell">
+                <span>Maxwell</span>
             </div>
         </div>
     </div>
@@ -187,6 +297,15 @@
             var avatar = document.getElementById("avatar-accueil");
             if (avatar) {
                 avatar.style.display = "none";
+            }
+        }
+
+        function interagirGenie(nom) {
+            var avatar = document.getElementById("avatar-accueil");
+            var texte = document.getElementById("texte-avatar");
+            if (avatar && texte) {
+                avatar.style.display = "flex";
+                texte.innerHTML = `✨ Vous contemplez le portrait de <strong>${nom}</strong>, illustre génie de l'Institut.`;
             }
         }
     </script>
