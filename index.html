@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Institut PiCube - Immersion 3D</title>
+    <title>Institut PiCube - Protocole P.H.O.T.O.N.</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
         html, body {
@@ -131,10 +131,9 @@
             font-weight: bold;
         }
 
-        /* --- BULLE DE DIALOGUE BLANCHE STYLE BD (Pointée vers Pi) --- */
+        /* --- BULLE DE DIALOGUE BLANCHE STYLE BD --- */
         #avatar-ui {
             position: absolute;
-            /* Positionnée dynamiquement près de l'avatar 3D à l'écran */
             top: 50%;
             left: 55%;
             transform: translateY(-50%);
@@ -151,7 +150,6 @@
             pointer-events: auto;
         }
 
-        /* La pointe de la bulle pointant vers la gauche (vers l'avatar) */
         #avatar-ui::after {
             content: '';
             position: absolute;
@@ -326,7 +324,6 @@
             </div>
         </div>
 
-        <!-- Bulle de dialogue blanche style BD -->
         <div id="avatar-ui">
             <div class="bulle-dialogue">
                 <h3>Avatar Pi</h3>
@@ -370,7 +367,6 @@
             pointLight.position.set(0, 2, 3);
             scene.add(pointLight);
 
-            // Application du logo de Pi (logopi.jpg) comme texture 3D sur un plan rectangulaire aux proportions du logo
             const textureLoader = new THREE.TextureLoader();
             textureLoader.load('logopi.jpg', (texture) => {
                 const geometry = new THREE.PlaneGeometry(1.4, 1.4);
@@ -379,7 +375,7 @@
                     transparent: true 
                 });
                 avatarMesh = new THREE.Mesh(geometry, material);
-                avatarMesh.position.set(-1.2, -0.1, -4); // Position de départ au fond de la statue
+                avatarMesh.position.set(-1.2, -0.1, -4);
                 scene.add(avatarMesh);
 
                 animationEnCours = true;
@@ -391,11 +387,10 @@
 
         function animerSortie3D() {
             if (animationEnCours && avatarMesh && avatarMesh.position.z < 0.8) {
-                avatarMesh.position.z += 0.035; // Avance vers l'écran
-                avatarMesh.rotation.y += 0.008; // Légère rotation fluide
+                avatarMesh.position.z += 0.035;
+                avatarMesh.rotation.y += 0.008;
             } else if (animationEnCours && avatarMesh && avatarMesh.position.z >= 0.8) {
                 animationEnCours = false;
-                // Affiche la bulle blanche style BD
                 document.getElementById('avatar-ui').style.opacity = '1';
             }
 
@@ -430,7 +425,7 @@
             if (ui && texte) {
                 ui.style.display = 'block';
                 ui.style.opacity = '1';
-                texte.innerHTML = `✨ Vous contemplez le véritable portrait de <strong>${nom}</strong>, illustre génie de l'Institut.`;
+                texte.innerHTML = `✨ <strong>${nom}</strong> est l'une des inspirations fondamentales du <em>protocole P.H.O.T.O.N.</em> au sein de l'Institut PiCube.`;
             }
         }
 
