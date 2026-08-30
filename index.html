@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Institut Pi au cube - Hall Principal</title>
+    <title>Institut Pi au cube - Entrée</title>
     <style>
         body {
             margin: 0;
@@ -16,52 +16,49 @@
             min-height: 100vh;
         }
 
-        /* 1. La Façade cliquable */
-        .facade-container {
-            position: relative;
-            width: 100%;
-            max-height: 350px;
-            overflow: hidden;
-            border-bottom: 4px solid #d4af37;
+        /* --- Vue de la Façade (Écran d'accueil interactif) --- */
+        #vue-facade {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
             cursor: pointer;
-        }
-
-        .facade-container img {
-            width: 100%;
-            height: auto;
-            display: block;
-            transition: transform 0.5s ease;
-        }
-
-        .facade-container:hover img {
-            transform: scale(1.02);
-        }
-
-        .facade-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to top, rgba(11, 15, 25, 0.9), transparent);
-            padding: 20px;
+            position: relative;
+            background-color: #0b0f19;
             text-align: center;
         }
 
-        .facade-overlay h1 {
+        #vue-facade img {
+            max-width: 80%;
+            max-height: 70vh;
+            border: 4px solid #d4af37;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+            transition: transform 0.3s ease;
+        }
+
+        #vue-facade img:hover {
+            transform: scale(1.02);
+        }
+
+        .facade-instruction {
+            margin-top: 20px;
             color: #d4af37;
-            margin: 0;
-            font-size: 2.5rem;
+            font-size: 1.5rem;
             text-transform: uppercase;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
         }
 
-        .facade-overlay p {
-            color: #e5e7eb;
-            margin: 5px 0 0 0;
-            font-size: 1rem;
+        /* --- Vue du Hall Principal (Cachée par défaut) --- */
+        #vue-hall {
+            display: none;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
-        /* 5. Les images des portraits */
+        /* Galerie des portraits */
         .galerie-portraits {
             display: flex;
             justify-content: center;
@@ -99,7 +96,7 @@
             font-weight: bold;
         }
 
-        /* 3. L'Avatar PII (sortant de la statue / apparition) */
+        /* Avatar PII */
         .section-avatar {
             display: flex;
             justify-content: center;
@@ -126,12 +123,10 @@
             0% {
                 opacity: 0;
                 transform: scale(0.9) translateY(15px);
-                filter: brightness(0.5);
             }
             100% {
                 opacity: 1;
                 transform: scale(1) translateY(0);
-                filter: brightness(1);
             }
         }
 
@@ -157,7 +152,7 @@
             line-height: 1.4;
         }
 
-        /* 2. Le Hall Principal */
+        /* Contenu du Hall */
         .contenu-principal {
             padding: 30px;
             text-align: center;
@@ -201,7 +196,7 @@
             color: #0b0f19;
         }
 
-        /* 4. Les couloirs à gauche, central et à droite */
+        /* Couloirs */
         .zone-couloirs {
             margin-top: 20px;
             padding-top: 20px;
@@ -244,103 +239,107 @@
 </head>
 <body>
 
-    <!-- 1. Façade cliquable -->
-    <div class="facade-container" onclick="clicFacade()">
+    <!-- 1. ÉCRAN DE LA FAÇADE (Cliquable) -->
+    <div id="vue-facade" onclick="entrerDansLInstitut()">
         <img src="facade_picube.jpg" alt="Façade de l'Institut Pi au cube">
-        <div class="facade-overlay">
-            <h1>Institut Pi au cube</h1>
-            <p>Cliquez pour activer l'entrée principale</p>
-        </div>
+        <div class="facade-instruction">Cliquez sur la façade pour entrer</div>
     </div>
 
-    <!-- 5. Galerie des 12 portraits avec leurs images -->
-    <div class="galerie-portraits">
-        <div class="cadre-portrait" onclick="interagirGenie('Albert Einstein')">
-            <img src="einstein.jpg" alt="Albert Einstein">
-            <span>Einstein</span>
-        </div>
-        <div class="cadre-portrait" onclick="interagirGenie('Pierre et Marie Curie')">
-            <img src="Pierre et Marie Curie.jpg" alt="Pierre et Marie Curie">
-            <span>Les Curie</span>
-        </div>
-        <div class="cadre-portrait" onclick="interagirGenie('Nikola Tesla')">
-            <img src="Nikola_Tesla.jpg" alt="Nikola Tesla">
-            <span>Tesla</span>
-        </div>
-        <div class="cadre-portrait" onclick="interagirGenie('Nathan Rosen')">
-            <img src="Rosen_Nathan.jpg" alt="Nathan Rosen">
-            <span>Rosen</span>
-        </div>
-        <div class="cadre-portrait" onclick="interagirGenie('Louis de Broglie')">
-            <img src="Louis Victor Broglie.jpg" alt="Louis de Broglie">
-            <span>De Broglie</span>
-        </div>
-        <div class="cadre-portrait" onclick="interagirGenie('Michael Faraday')">
-            <img src="Michael_Faraday.jpg" alt="Michael Faraday">
-            <span>Faraday</span>
-        </div>
-        <div class="cadre-portrait" onclick="interagirGenie('Joseph Fourier')">
-            <img src="Joseph Fourier (1768-1830).jpg" alt="Joseph Fourier">
-            <span>Fourier</span>
-        </div>
-        <div class="cadre-portrait" onclick="interagirGenie('Archimède')">
-            <img src="Archimede.jpg" alt="Archimède">
-            <span>Archimède</span>
-        </div>
-        <div class="cadre-portrait" onclick="interagirGenie('Carl Friedrich Gauss')">
-            <img src="Carl Friedrich Gauss 1840.jpg" alt="Carl Friedrich Gauss">
-            <span>Gauss</span>
-        </div>
-        <div class="cadre-portrait" onclick="interagirGenie('Dmitri Mendeleïev')">
-            <img src="Dmitri_Mendeleev.jpg" alt="Dmitri Mendeleïev">
-            <span>Mendeleïev</span>
-        </div>
-        <div class="cadre-portrait" onclick="interagirGenie('Heinrich Hertz')">
-            <img src="Heinrich-Hertz.jpg" alt="Heinrich Hertz">
-            <span>Hertz</span>
-        </div>
-        <div class="cadre-portrait" onclick="interagirGenie('James Clerk Maxwell')">
-            <img src="James-Clerk-Maxwell-1831-1879.jpg" alt="James Clerk Maxwell">
-            <span>Maxwell</span>
-        </div>
-    </div>
-
-    <!-- 3. Avatar PII émergeant -->
-    <div class="section-avatar">
-        <div class="avatar-container">
-            <div class="avatar-cercle">Π</div>
-            <div id="texte-avatar"><strong>Avatar PII :</strong> Bonjour, comment puis-je vous aider ?</div>
-        </div>
-    </div>
-
-    <!-- 2. Hall Principal et 4. Couloirs (Gauche, Central, Droite) -->
-    <div class="contenu-principal">
-        <h2>Hall Principal</h2>
-        <p class="description-hall">Sélectionnez une passerelle principale ou empruntez l'un des couloirs de circulation :</p>
+    <!-- 2. ÉCRAN DU HALL PRINCIPAL (Apparaît après le clic) -->
+    <div id="vue-hall">
         
-        <div class="passerelles">
-            <a href="energie.html" class="bouton-passerelle">Énergie</a>
-            <a href="espace.html" class="bouton-passerelle">Espace</a>
-            <a href="medecine.html" class="bouton-passerelle">Médecine</a>
-        </div>
-
-        <div class="zone-couloirs">
-            <p style="color: #d4af37; font-weight: bold; margin-bottom: 15px;">ORIENTATION DES COULOIRS</p>
-            <div class="couloirs">
-                <a href="couloir_gauche.html" class="bouton-couloir">← Couloir Gauche</a>
-                <a href="couloir_central.html" class="bouton-couloir">↑ Couloir Central</a>
-                <a href="couloir_droite.html" class="bouton-couloir">Couloir Droite →</a>
+        <!-- Galerie des 12 portraits -->
+        <div class="galerie-portraits">
+            <div class="cadre-portrait" onclick="interagirGenie('Albert Einstein')">
+                <img src="Albert  Einstein.jpg" alt="Albert Einstein">
+                <span>Einstein</span>
+            </div>
+            <div class="cadre-portrait" onclick="interagirGenie('Pierre et Marie Curie')">
+                <img src="Pierre et Marie Curie.jpg" alt="Pierre et Marie Curie">
+                <span>Les Curie</span>
+            </div>
+            <div class="cadre-portrait" onclick="interagirGenie('Nikola Tesla')">
+                <img src="Nikola_Tesla.jpg" alt="Nikola Tesla">
+                <span>Tesla</span>
+            </div>
+            <div class="cadre-portrait" onclick="interagirGenie('Nathan Rosen')">
+                <img src="Rosen_Nathan.jpg" alt="Nathan Rosen">
+                <span>Rosen</span>
+            </div>
+            <div class="cadre-portrait" onclick="interagirGenie('Louis de Broglie')">
+                <img src="Louis Victor Broglie.jpg" alt="Louis de Broglie">
+                <span>De Broglie</span>
+            </div>
+            <div class="cadre-portrait" onclick="interagirGenie('Michael Faraday')">
+                <img src="Michael_Faraday.jpg" alt="Michael Faraday">
+                <span>Faraday</span>
+            </div>
+            <div class="cadre-portrait" onclick="interagirGenie('Joseph Fourier')">
+                <img src="Joseph Fourier (1768-1830).jpg" alt="Joseph Fourier">
+                <span>Fourier</span>
+            </div>
+            <div class="cadre-portrait" onclick="interagirGenie('Archimède')">
+                <img src="Archimede.jpg" alt="Archimède">
+                <span>Archimède</span>
+            </div>
+            <div class="cadre-portrait" onclick="interagirGenie('Carl Friedrich Gauss')">
+                <img src="Carl Friedrich Gauss 1840.jpg" alt="Carl Friedrich Gauss">
+                <span>Gauss</span>
+            </div>
+            <div class="cadre-portrait" onclick="interagirGenie('Dmitri Mendeleïev')">
+                <img src="Dmitri_Mendeleev.jpg" alt="Dmitri Mendeleïev">
+                <span>Mendeleïev</span>
+            </div>
+            <div class="cadre-portrait" onclick="interagirGenie('Heinrich Hertz')">
+                <img src="Heinrich-Hertz.jpg" alt="Heinrich Hertz">
+                <span>Hertz</span>
+            </div>
+            <div class="cadre-portrait" onclick="interagirGenie('James Clerk Maxwell')">
+                <img src="James-Clerk-Maxwell-1831-1879.jpg" alt="James Clerk Maxwell">
+                <span>Maxwell</span>
             </div>
         </div>
+
+        <!-- Avatar PII -->
+        <div class="section-avatar">
+            <div class="avatar-container">
+                <div class="avatar-cercle">Π</div>
+                <div id="texte-avatar"><strong>Avatar PII :</strong> Bonjour, comment puis-je vous aider ?</div>
+            </div>
+        </div>
+
+        <!-- Hall Principal et Couloirs -->
+        <div class="contenu-principal">
+            <h2>Hall Principal</h2>
+            <p class="description-hall">Sélectionnez une passerelle principale ou empruntez l'un des couloirs de circulation :</p>
+            
+            <div class="passerelles">
+                <a href="energie.html" class="bouton-passerelle">Énergie</a>
+                <a href="espace.html" class="bouton-passerelle">Espace</a>
+                <a href="medecine.html" class="bouton-passerelle">Médecine</a>
+            </div>
+
+            <div class="zone-couloirs">
+                <p style="color: #d4af37; font-weight: bold; margin-bottom: 15px;">ORIENTATION DES COULOIRS</p>
+                <div class="couloirs">
+                    <a href="couloir_gauche.html" class="bouton-couloir">← Couloir Gauche</a>
+                    <a href="couloir_central.html" class="bouton-couloir">↑ Couloir Central</a>
+                    <a href="couloir_droite.html" class="bouton-couloir">Couloir Droite →</a>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            Institut Pi au cube - Tous droits réservés
+        </footer>
+
     </div>
 
-    <footer>
-        Institut Pi au cube - Tous droits réservés
-    </footer>
-
     <script>
-        function clicFacade() {
-            document.getElementById('texte-avatar').innerHTML = "<strong>Avatar PII :</strong> Façade activée. Bienvenue dans l'enceinte de l'Institut.";
+        function entrerDansLInstitut() {
+            // Masque la façade et affiche le hall
+            document.getElementById('vue-facade').style.display = 'none';
+            document.getElementById('vue-hall').style.display = 'flex';
         }
 
         function interagirGenie(nom) {
