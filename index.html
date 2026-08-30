@@ -2,316 +2,127 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Institut PiCube - Entrée & Hall</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Institut Pi au cube</title>
     <style>
-        html, body {
+        body {
             margin: 0;
             padding: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #050b14;
-            color: #d4af37;
-            font-family: 'Arial', sans-serif;
-            overflow: hidden;
-        }
-        
-        .page-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            box-sizing: border-box;
-            padding: 10px;
+            background-color: #0b0f19;
+            color: #f0f4f8;
+            font-family: Arial, sans-serif;
+            line-height: 1.25;
         }
 
-        .image-wrapper {
-            position: relative;
-            display: inline-block;
-        }
-
-        .image-institut {
-            display: block;
-            width: 85vw;
-            max-width: 1100px;
-            height: 65vh;
-            max-height: 600px;
-            object-fit: cover;
-            border: 3px solid #d4af37;
-            border-radius: 12px;
-            box-shadow: 0 0 40px rgba(212, 175, 55, 0.5);
-            margin-bottom: 10px;
-        }
-
-        .titre-container {
+        header {
             text-align: center;
-            margin-bottom: 5px;
+            padding: 20px;
+            background: #111827;
+            border-bottom: 2px solid #d4af37;
         }
 
-        h1, h2 {
-            font-size: 1.4rem;
-            letter-spacing: 2px;
-            margin: 0 0 3px 0;
+        h1 {
             color: #d4af37;
-        }
-
-        p {
-            font-size: 0.85rem;
             margin: 0;
-            color: #ffffff;
-        }
-        
-        /* Écran du hall caché par défaut */
-        #conteneur-de-hall {
-            display: none;
+            font-size: 1.8rem;
         }
 
-        /* --- PASSERELLES SUR LE HALL --- */
-        .passerelle {
-            position: absolute;
-            z-index: 5;
-            border: 2px dashed rgba(212, 175, 55, 0.6);
-            border-radius: 6px;
-            background: rgba(212, 175, 55, 0.12);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .passerelle:hover {
-            background: rgba(212, 175, 55, 0.35);
-            border-color: #fff;
-            box-shadow: 0 0 25px rgba(212, 175, 55, 0.9);
-        }
-
-        #passerelle-gauche { top: 35%; left: 12%; width: 16%; height: 40%; }
-        #passerelle-milieu { top: 22%; left: 42%; width: 16%; height: 30%; }
-        #passerelle-droite { top: 35%; right: 12%; width: 16%; height: 40%; }
-
-        .passerelle::after {
-            content: attr(data-tooltip);
-            position: absolute;
-            bottom: 8px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #050b14;
-            color: #d4af37;
-            padding: 3px 6px;
-            font-size: 0.7rem;
-            border: 1px solid #d4af37;
-            border-radius: 4px;
-            white-space: nowrap;
-            opacity: 0;
-            transition: opacity 0.3s;
-            pointer-events: none;
-        }
-        .passerelle:hover::after { opacity: 1; }
-
-        /* --- GALERIE DES GÉNIES (PORTRAITS) --- */
         .galerie-portraits {
             display: flex;
             justify-content: center;
-            gap: 10px;
+            gap: 20px;
+            padding: 20px;
             flex-wrap: wrap;
-            max-width: 1100px;
-            margin-top: 5px;
+            background: #1f2937;
         }
 
         .cadre-portrait {
-            width: 55px;
             text-align: center;
             cursor: pointer;
             transition: transform 0.2s;
         }
 
         .cadre-portrait:hover {
-            transform: scale(1.15);
+            transform: scale(1.05);
         }
 
         .cadre-portrait img {
-            width: 45px;
-            height: 45px;
+            width: 70px;
+            height: 70px;
             object-fit: cover;
             border: 2px solid #d4af37;
             border-radius: 50%;
-            box-shadow: 0 0 8px rgba(212, 175, 55, 0.6);
+            display: block;
+            margin: 0 auto 8px auto;
         }
 
         .cadre-portrait span {
-            display: block;
-            font-size: 0.6rem;
+            font-size: 0.9rem;
             color: #d4af37;
-            margin-top: 2px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        /* --- L'EFFET DE MARCHE DEPUIS LA STATUE --- */
-        #avatar-accueil {
-            position: absolute;
-            top: 40%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.1);
-            opacity: 0;
-            display: flex;
-            align-items: center;
-            background: rgba(5, 11, 20, 0.95);
-            border: 2px solid #d4af37;
-            border-radius: 15px;
-            padding: 15px 25px;
-            box-shadow: 0 0 50px rgba(212, 175, 55, 0.9);
-            z-index: 20;
-            animation: marcheVersNous 1.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-            animation-delay: 0.2s;
-        }
-
-        @keyframes marcheVersNous {
-            0% { top: 40%; transform: translate(-50%, -50%) scale(0.1); opacity: 0; }
-            50% { opacity: 1; }
-            100% { top: 65%; transform: translate(-50%, -50%) scale(1); opacity: 1; }
-        }
-
-        @keyframes lévitationMarche {
-            0% { transform: translateY(0) rotate(-1deg); filter: drop-shadow(0 0 8px #d4af37); }
-            50% { transform: translateY(-8px) rotate(1deg); filter: drop-shadow(0 0 20px #d4af37); }
-            100% { transform: translateY(0) rotate(-1deg); filter: drop-shadow(0 0 8px #d4af37); }
-        }
-
-        #avatar-accueil img {
-            width: 80px;
-            height: auto;
-            margin-right: 15px;
-            border: none;
-            box-shadow: none;
-            animation: lévitationMarche 1.5s ease-in-out infinite alternate;
-        }
-
-        .bulle-dialogue h3 { margin: 0 0 5px 0; font-size: 1.1rem; color: #d4af37; }
-        .bulle-dialogue p { margin: 0 0 10px 0; font-size: 0.9rem; color: #ffffff; }
-        .btn-fermer {
-            background: #d4af37;
-            color: #050b14;
-            border: none;
-            padding: 5px 12px;
             font-weight: bold;
-            border-radius: 4px;
+        }
+
+        .contenu-principal {
+            padding: 30px;
+            text-align: center;
+        }
+
+        .passerelles {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .bouton-passerelle {
+            background-color: #111827;
+            border: 1px solid #d4af37;
+            color: #f0f4f8;
+            padding: 10px 20px;
+            border-radius: 5px;
             cursor: pointer;
+            font-weight: bold;
             transition: background 0.2s;
         }
-        .btn-fermer:hover { background: #fff; }
+
+        .bouton-passerelle:hover {
+            background-color: #d4af37;
+            color: #0b0f19;
+        }
     </style>
 </head>
 <body>
 
-    <!-- 1. LA FAÇADE -->
-    <div id="conteneur-de-facade" class="page-container" onclick="entrerDansLInstitut()">
-        <img src="facade.jpg" alt="Façade de l'Institut" class="image-institut">
-        <div class="titre-container">
-            <h1>INSTITUT PICUBE - &pi;&sup3;</h1>
-            <p><em>Cliquez n'importe où pour entrer dans le hall</em></p>
+    <header>
+        <h1>Institut Pi au cube</h1>
+    </header>
+
+    <!-- Galerie des portraits (avec Pierre et Marie Curie) -->
+    <div class="galerie-portraits">
+        <div class="cadre-portrait" onclick="clicGenie('Pierre et Marie Curie')">
+            <img src="pierre_et_marie_curie.jpg" alt="Pierre et Marie Curie">
+            <span>Curie</span>
         </div>
+        <!-- Vous pourrez ajouter d'autres portraits ici de la même manière -->
     </div>
 
-    <!-- 2. LE HALL -->
-    <div id="conteneur-de-hall" class="page-container" onclick="event.stopPropagation();">
-        <div class="image-wrapper">
-            <img src="hall.jpg" alt="Hall Circulaire" class="image-institut">
-            
-            <!-- LES TROIS PASSERELLES -->
-            <div id="passerelle-gauche" class="passerelle" data-tooltip="Couloir Énergétique" onclick="accederPasserelle('Énergie')"></div>
-            <div id="passerelle-milieu" class="passerelle" data-tooltip="Couloir Spatial" onclick="accederPasserelle('Espace')"></div>
-            <div id="passerelle-droite" class="passerelle" data-tooltip="Couloir Médical" onclick="accederPasserelle('Médecine')"></div>
-        </div>
-
-        <div class="titre-container">
-            <h2>Hall Circulaire de l'Institut</h2>
-        </div>
-
-        <!-- GALERIE DES PORTRAITS DES GÉNIES -->
-        <div class="galerie-portraits">
-            <div class="cadre-portrait" onclick="clicGenie('Einstein')">
-                <img src="einstein.jpg" alt="Einstein">
-                <span>Einstein</span>
-            </div>
-            <div class="cadre-portrait" onclick="clicGenie('Tesla')">
-                <img src="tesla.jpg" alt="Tesla">
-                <span>Tesla</span>
-            </div>
-            <div class="cadre-portrait" onclick="clicGenie('Mendeleiev')">
-                <img src="mendeleiev.jpg" alt="Mendeleiev">
-                <span>Mendeleiev</span>
-            </div>
-            <div class="cadre-portrait" onclick="clicGenie('Gauss')">
-                <img src="gauss.jpg" alt="Gauss">
-                <span>Gauss</span>
-            </div>
-            <div class="cadre-portrait" onclick="clicGenie('Hertz')">
-                <img src="hertz.jpg" alt="Hertz">
-                <span>Hertz</span>
-            </div>
-            <div class="cadre-portrait" onclick="clicGenie('Faraday')">
-                <img src="faraday.jpg" alt="Faraday">
-                <span>Faraday</span>
-            </div>
-            <div class="cadre-portrait" onclick="clicGenie('Fournier')">
-                <img src="fournier.jpg" alt="Fournier">
-                <span>Fournier</span>
-            </div>
-            <div class="cadre-portrait" onclick="clicGenie('Rosen')">
-                <img src="rosen.jpg" alt="Rosen">
-                <span>Rosen</span>
-            </div>
-            <div class="cadre-portrait" onclick="clicGenie('De Broglie')">
-                <img src="debroglie.jpg" alt="De Broglie">
-                <span>De Broglie</span>
-            </div>
-            <div class="cadre-portrait" onclick="clicGenie('Maxwell')">
-                <img src="maxwell.jpg" alt="Maxwell">
-                <span>Maxwell</span>
-            </div>
-        </div>
+    <div class="contenu-principal">
+        <h2>Bienvenue dans l'Institut</h2>
+        <p>Sélectionnez une passerelle pour explorer les départements :</p>
         
-        <!-- PI QUI SE DÉTACHE DE LA STATUE ET S'AVANCE VERS NOUS -->
-        <div id="avatar-accueil">
-            <img src="logopi.jpg" alt="Avatar PiCube">
-            <div class="bulle-dialogue">
-                <h3>PiCube (Guide de l'Institut)</h3>
-                <p>😊 Bonjour ! Comment puis-je vous aider ?</p>
-                <button class="btn-fermer" onclick="fermerAccueil()">Entrer dans l'Institut</button>
-            </div>
+        <div class="passerelles">
+            <button class="bouton-passerelle" onclick="location.href='energie.html'">Énergie</button>
+            <button class="bouton-passerelle" onclick="location.href='espace.html'">Espace</button>
+            <button class="bouton-passerelle" onclick="location.href='medecine.html'">Médecine</button>
         </div>
     </div>
 
     <script>
-        function entrerDansLInstitut() {
-            var facade = document.getElementById("conteneur-de-facade");
-            var hall = document.getElementById("conteneur-de-hall");
-            
-            if (facade && hall) {
-                facade.style.display = "none";
-                hall.style.display = "flex";
-            }
-        }
-
-        function fermerAccueil() {
-            var avatar = document.getElementById("avatar-accueil");
-            if (avatar) {
-                avatar.style.display = "none";
-            }
-        }
-
-        function accederPasserelle(type) {
-            alert("Accès en cours vers le département : " + type);
-        }
-
         function clicGenie(nom) {
-            alert("Vous examinez les travaux de : " + nom + " liés au Protocole P.H.O.T.O.N.");
+            alert("Vous avez sélectionné le profil de : " + nom);
         }
     </script>
+
 </body>
 </html>
