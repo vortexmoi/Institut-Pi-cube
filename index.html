@@ -3,124 +3,279 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Institut Pi au cube</title>
+    <title>Institut PiCube - Hall Principal</title>
     <style>
+        /* --- Styles Généraux du Hall --- */
         body {
             margin: 0;
             padding: 0;
             background-color: #0b0f19;
             color: #f0f4f8;
-            font-family: Arial, sans-serif;
-            line-height: 1.25;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         header {
             text-align: center;
-            padding: 20px;
-            background: #111827;
-            border-bottom: 2px solid #d4af37;
+            padding: 30px 20px;
+            background: linear-gradient(to bottom, #111827, #1f2937);
+            border-bottom: 3px solid #d4af37;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
 
         h1 {
             color: #d4af37;
             margin: 0;
-            font-size: 1.8rem;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
 
+        /* --- Galerie des 12 Portraits --- */
         .galerie-portraits {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            align-items: flex-start;
+            gap: 12px;
             padding: 20px;
+            background-color: #1f2937;
             flex-wrap: wrap;
-            background: #1f2937;
         }
 
         .cadre-portrait {
             text-align: center;
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: transform 0.3s ease;
+            width: 80px;
         }
 
         .cadre-portrait:hover {
-            transform: scale(1.05);
+            transform: translateY(-5px);
         }
 
         .cadre-portrait img {
-            width: 70px;
-            height: 70px;
+            width: 65px;
+            height: 65px;
             object-fit: cover;
-            border: 2px solid #d4af37;
+            border: 3px solid #d4af37;
             border-radius: 50%;
             display: block;
-            margin: 0 auto 8px auto;
+            margin: 0 auto 5px auto;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+            background-color: #374151;
         }
 
         .cadre-portrait span {
-            font-size: 0.9rem;
-            color: #d4af37;
+            font-size: 0.7rem;
+            color: #f0f4f8;
             font-weight: bold;
+            background-color: rgba(0,0,0,0.6);
+            padding: 2px 4px;
+            border-radius: 4px;
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
+        /* --- Section AvatarPi --- */
+        .section-avatar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: linear-gradient(to bottom, #1f2937, #111827);
+            padding: 20px;
+            border-bottom: 1px solid #374151;
+        }
+
+        .avatar-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background-color: rgba(17, 24, 39, 0.8);
+            border: 2px solid #d4af37;
+            border-radius: 15px;
+            padding: 15px 25px;
+            max-width: 650px;
+            width: 100%;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+        }
+
+        .avatar-cercle {
+            width: 70px;
+            height: 70px;
+            border: 3px solid #d4af37;
+            border-radius: 50%;
+            background-color: #374151;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8rem;
+            color: #d4af37;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+            flex-shrink: 0;
+            animation: pulse-avatar 3s infinite ease-in-out;
+        }
+
+        @keyframes pulse-avatar {
+            0%, 100% { box-shadow: 0 0 10px rgba(212, 175, 55, 0.5); }
+            50% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.9); }
+        }
+
+        .avatar-bulle {
+            font-size: 0.95rem;
+            color: #e5e7eb;
+            line-height: 1.4;
+            font-style: italic;
+        }
+
+        /* --- Contenu Principal (Passerelles) --- */
         .contenu-principal {
-            padding: 30px;
+            padding: 30px 20px;
             text-align: center;
+            flex-grow: 1;
+        }
+
+        h2 {
+            color: #d4af37;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #9ca3af;
+            max-width: 600px;
+            margin: 0 auto 25px auto;
+            line-height: 1.6;
         }
 
         .passerelles {
             display: flex;
             justify-content: center;
-            gap: 15px;
-            margin-top: 20px;
+            gap: 25px;
             flex-wrap: wrap;
         }
 
         .bouton-passerelle {
             background-color: #111827;
-            border: 1px solid #d4af37;
-            color: #f0f4f8;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
+            border: 2px solid #d4af37;
+            color: #d4af37;
+            padding: 15px 35px;
+            font-size: 1.1rem;
             font-weight: bold;
-            transition: background 0.2s;
+            text-transform: uppercase;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
         }
 
         .bouton-passerelle:hover {
             background-color: #d4af37;
             color: #0b0f19;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.7);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #111827;
+            border-top: 1px solid #374151;
+            font-size: 0.8rem;
+            color: #6b7280;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Institut Pi au cube</h1>
+        <h1>Institut PiCube</h1>
     </header>
 
-    <!-- Galerie des portraits (avec Pierre et Marie Curie) -->
+    <!-- Galerie des 12 Portraits -->
     <div class="galerie-portraits">
-        <div class="cadre-portrait" onclick="clicGenie('Pierre et Marie Curie')">
-            <img src="pierre_et_marie_curie.jpg" alt="Pierre et Marie Curie">
-            <span>Curie</span>
+        <div class="cadre-portrait" onclick="interagirGenie('Albert Einstein')">
+            <img src="einstein.jpg" alt="Albert Einstein">
+            <span>Einstein</span>
         </div>
-        <!-- Vous pourrez ajouter d'autres portraits ici de la même manière -->
+        <div class="cadre-portrait" onclick="interagirGenie('Pierre et Marie Curie')">
+            <img src="Pierre et Marie Curie.jpg" alt="Pierre et Marie Curie">
+            <span>Les Curie</span>
+        </div>
+        <div class="cadre-portrait" onclick="interagirGenie('Nikola Tesla')">
+            <img src="Nikola_Tesla.jpg" alt="Nikola Tesla">
+            <span>Tesla</span>
+        </div>
+        <div class="cadre-portrait" onclick="interagirGenie('Nathan Rosen')">
+            <img src="Rosen_Nathan.jpg" alt="Nathan Rosen">
+            <span>Rosen</span>
+        </div>
+        <div class="cadre-portrait" onclick="interagirGenie('Louis de Broglie')">
+            <img src="Louis Victor Broglie.jpg" alt="Louis de Broglie">
+            <span>De Broglie</span>
+        </div>
+        <div class="cadre-portrait" onclick="interagirGenie('Michael Faraday')">
+            <img src="Michael_Faraday.jpg" alt="Michael Faraday">
+            <span>Faraday</span>
+        </div>
+        <div class="cadre-portrait" onclick="interagirGenie('Joseph Fourier')">
+            <img src="Joseph Fourier (1768-1830).jpg" alt="Joseph Fourier">
+            <span>Fourier</span>
+        </div>
+        <div class="cadre-portrait" onclick="interagirGenie('Archimède')">
+            <img src="Archimede.jpg" alt="Archimède">
+            <span>Archimède</span>
+        </div>
+        <div class="cadre-portrait" onclick="interagirGenie('Carl Friedrich Gauss')">
+            <img src="Carl Friedrich Gauss 1840.jpg" alt="Carl Friedrich Gauss">
+            <span>Gauss</span>
+        </div>
+        <div class="cadre-portrait" onclick="interagirGenie('Dmitri Mendeleïev')">
+            <img src="Dmitri_Mendeleev.jpg" alt="Dmitri Mendeleïev">
+            <span>Mendeleïev</span>
+        </div>
+        <div class="cadre-portrait" onclick="interagirGenie('Heinrich Hertz')">
+            <img src="Heinrich-Hertz.jpg" alt="Heinrich Hertz">
+            <span>Hertz</span>
+        </div>
+        <div class="cadre-portrait" onclick="interagirGenie('James Clerk Maxwell')">
+            <img src="James-Clerk-Maxwell-1831-1879.jpg" alt="James Clerk Maxwell">
+            <span>Maxwell</span>
+        </div>
+    </div>
+
+    <!-- Interface AvatarPi -->
+    <div class="section-avatar">
+        <div class="avatar-container">
+            <div class="avatar-cercle">π</div>
+            <div class="avatar-bulle" id="texte-avatar">
+                "Bienvenue dans le Hall central de l'Institut PiCube. Cliquez sur l'un des portraits pour en savoir plus sur les pionniers de notre héritage scientifique."
+            </div>
+        </div>
     </div>
 
     <div class="contenu-principal">
-        <h2>Bienvenue dans l'Institut</h2>
-        <p>Sélectionnez une passerelle pour explorer les départements :</p>
+        <h2>Hall Principal</h2>
+        <p>Veuillez sélectionner une passerelle pour accéder aux départements de recherche de l'Institut PiCube.</p>
         
         <div class="passerelles">
-            <button class="bouton-passerelle" onclick="location.href='energie.html'">Énergie</button>
-            <button class="bouton-passerelle" onclick="location.href='espace.html'">Espace</button>
-            <button class="bouton-passerelle" onclick="location.href='medecine.html'">Médecine</button>
+            <a href="energie.html" class="bouton-passerelle">Énergie</a>
+            <a href="espace.html" class="bouton-passerelle">Espace</a>
+            <a href="medecine.html" class="bouton-passerelle">Médecine</a>
         </div>
     </div>
 
+    <footer>
+        Institut PiCube - Secteur Recherche & Développement
+    </footer>
+
     <script>
-        function clicGenie(nom) {
-            alert("Vous avez sélectionné le profil de : " + nom);
+        function interagirGenie(nom) {
+            const bulle = document.getElementById('texte-avatar');
+            bulle.innerHTML = `« Ah, vous vous intéressez à <strong>${nom}</strong> ! Un esprit remarquable qui a façonné les fondations de notre démarche à l'Institut. »`;
         }
     </script>
 
