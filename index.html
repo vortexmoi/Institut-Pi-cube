@@ -16,20 +16,52 @@
             min-height: 100vh;
         }
 
-        header {
-            text-align: center;
-            padding: 25px;
-            background: #111827;
-            border-bottom: 3px solid #d4af37;
+        /* 1. La Façade cliquable */
+        .facade-container {
+            position: relative;
+            width: 100%;
+            max-height: 350px;
+            overflow: hidden;
+            border-bottom: 4px solid #d4af37;
+            cursor: pointer;
         }
 
-        h1 {
+        .facade-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .facade-container:hover img {
+            transform: scale(1.02);
+        }
+
+        .facade-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(11, 15, 25, 0.9), transparent);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .facade-overlay h1 {
             color: #d4af37;
             margin: 0;
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             text-transform: uppercase;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
         }
 
+        .facade-overlay p {
+            color: #e5e7eb;
+            margin: 5px 0 0 0;
+            font-size: 1rem;
+        }
+
+        /* 5. Les images des portraits */
         .galerie-portraits {
             display: flex;
             justify-content: center;
@@ -37,12 +69,18 @@
             padding: 20px;
             background: #1f2937;
             flex-wrap: wrap;
+            border-bottom: 2px solid #374151;
         }
 
         .cadre-portrait {
             text-align: center;
             cursor: pointer;
             width: 80px;
+            transition: transform 0.3s ease;
+        }
+
+        .cadre-portrait:hover {
+            transform: translateY(-5px);
         }
 
         .cadre-portrait img {
@@ -61,49 +99,87 @@
             font-weight: bold;
         }
 
+        /* 3. L'Avatar PII (sortant de la statue / apparition) */
         .section-avatar {
             display: flex;
             justify-content: center;
-            padding: 20px;
-            background: #111827;
+            padding: 25px;
+            background: linear-gradient(to bottom, #111827, #1f2937);
             border-bottom: 1px solid #374151;
         }
 
         .avatar-container {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 20px;
             border: 2px solid #d4af37;
-            padding: 10px 20px;
-            border-radius: 10px;
-            max-width: 600px;
-            background: #1f2937;
+            padding: 15px 30px;
+            border-radius: 15px;
+            max-width: 650px;
+            width: 100%;
+            background: rgba(11, 15, 25, 0.9);
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.4);
+            animation: apparition-statue 1.5s ease-out;
+        }
+
+        @keyframes apparition-statue {
+            0% {
+                opacity: 0;
+                transform: scale(0.9) translateY(15px);
+                filter: brightness(0.5);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+                filter: brightness(1);
+            }
         }
 
         .avatar-cercle {
-            width: 50px;
-            height: 50px;
-            border: 2px solid #d4af37;
+            width: 60px;
+            height: 60px;
+            border: 3px solid #d4af37;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             color: #d4af37;
             font-weight: bold;
+            background: #111827;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
+            flex-shrink: 0;
         }
 
+        #texte-avatar {
+            font-size: 1.05rem;
+            color: #f0f4f8;
+            line-height: 1.4;
+        }
+
+        /* 2. Le Hall Principal */
         .contenu-principal {
             padding: 30px;
             text-align: center;
             flex-grow: 1;
         }
 
+        h2 {
+            color: #d4af37;
+            margin-bottom: 10px;
+        }
+
+        p.description-hall {
+            color: #9ca3af;
+            max-width: 600px;
+            margin: 0 auto 25px auto;
+        }
+
         .passerelles {
             display: flex;
             justify-content: center;
             gap: 20px;
-            margin-top: 20px;
+            margin-bottom: 30px;
             flex-wrap: wrap;
         }
 
@@ -117,6 +193,7 @@
             cursor: pointer;
             text-decoration: none;
             text-transform: uppercase;
+            transition: all 0.3s ease;
         }
 
         .bouton-passerelle:hover {
@@ -124,8 +201,14 @@
             color: #0b0f19;
         }
 
+        /* 4. Les couloirs à gauche, central et à droite */
+        .zone-couloirs {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px dashed #374151;
+        }
+
         .couloirs {
-            margin-top: 40px;
             display: flex;
             justify-content: center;
             gap: 15px;
@@ -134,12 +217,19 @@
 
         .bouton-couloir {
             background-color: #1f2937;
-            border: 1px solid #9ca3af;
+            border: 1px solid #d4af37;
             color: #f0f4f8;
-            padding: 8px 15px;
-            border-radius: 4px;
+            padding: 10px 20px;
+            border-radius: 5px;
             cursor: pointer;
             text-decoration: none;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+
+        .bouton-couloir:hover {
+            background-color: #374151;
+            color: #d4af37;
         }
 
         footer {
@@ -147,15 +237,23 @@
             padding: 15px;
             background: #111827;
             border-top: 1px solid #374151;
+            font-size: 0.8rem;
+            color: #6b7280;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Institut Pi au cube</h1>
-    </header>
+    <!-- 1. Façade cliquable -->
+    <div class="facade-container" onclick="clicFacade()">
+        <img src="facade_picube.jpg" alt="Façade de l'Institut Pi au cube">
+        <div class="facade-overlay">
+            <h1>Institut Pi au cube</h1>
+            <p>Cliquez pour activer l'entrée principale</p>
+        </div>
+    </div>
 
+    <!-- 5. Galerie des 12 portraits avec leurs images -->
     <div class="galerie-portraits">
         <div class="cadre-portrait" onclick="interagirGenie('Albert Einstein')">
             <img src="einstein.jpg" alt="Albert Einstein">
@@ -207,16 +305,18 @@
         </div>
     </div>
 
+    <!-- 3. Avatar PII émergeant -->
     <div class="section-avatar">
         <div class="avatar-container">
-            <div class="avatar-cercle">π</div>
-            <div id="texte-avatar">AvatarPi en ligne : Bienvenue dans le Hall central de l'Institut Pi au cube.</div>
+            <div class="avatar-cercle">Π</div>
+            <div id="texte-avatar"><strong>Avatar PII :</strong> Bonjour, comment puis-je vous aider ?</div>
         </div>
     </div>
 
+    <!-- 2. Hall Principal et 4. Couloirs (Gauche, Central, Droite) -->
     <div class="contenu-principal">
         <h2>Hall Principal</h2>
-        <p>Sélectionnez une passerelle pour explorer les départements :</p>
+        <p class="description-hall">Sélectionnez une passerelle principale ou empruntez l'un des couloirs de circulation :</p>
         
         <div class="passerelles">
             <a href="energie.html" class="bouton-passerelle">Énergie</a>
@@ -224,11 +324,13 @@
             <a href="medecine.html" class="bouton-passerelle">Médecine</a>
         </div>
 
-        <div class="couloirs">
-            <a href="couloir_nord.html" class="bouton-couloir">Couloir Nord</a>
-            <a href="couloir_sud.html" class="bouton-couloir">Couloir Sud</a>
-            <a href="laboratoire.html" class="bouton-couloir">Laboratoire</a>
-            <a href="archives.html" class="bouton-couloir">Archives</a>
+        <div class="zone-couloirs">
+            <p style="color: #d4af37; font-weight: bold; margin-bottom: 15px;">ORIENTATION DES COULOIRS</p>
+            <div class="couloirs">
+                <a href="couloir_gauche.html" class="bouton-couloir">← Couloir Gauche</a>
+                <a href="couloir_central.html" class="bouton-couloir">↑ Couloir Central</a>
+                <a href="couloir_droite.html" class="bouton-couloir">Couloir Droite →</a>
+            </div>
         </div>
     </div>
 
@@ -237,8 +339,12 @@
     </footer>
 
     <script>
+        function clicFacade() {
+            document.getElementById('texte-avatar').innerHTML = "<strong>Avatar PII :</strong> Façade activée. Bienvenue dans l'enceinte de l'Institut.";
+        }
+
         function interagirGenie(nom) {
-            document.getElementById('texte-avatar').innerText = "Profil sélectionné : " + nom + " (" + nom + ")";
+            document.getElementById('texte-avatar').innerHTML = `<strong>Avatar PII :</strong> Vous contemplez le profil de <strong>${nom}</strong>.`;
         }
     </script>
 
