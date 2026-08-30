@@ -2,306 +2,193 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Institut Pi au cube</title>
+    <title>Institut PiCube - Entrée</title>
     <style>
-        body {
+        html, body {
             margin: 0;
             padding: 0;
-            background-color: #0b0f19;
-            color: #f0f4f8;
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
+            width: 100%;
+            height: 100%;
+            background-color: #050b14;
+            color: #d4af37;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
         }
-
-        #vue-facade {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            width: 100vw;
-            cursor: pointer;
-            position: fixed;
+        
+        .page-container {
+            position: absolute;
             top: 0;
             left: 0;
-            background-color: #0b0f19;
-            z-index: 100;
-            text-align: center;
-        }
-
-        #vue-facade img {
-            max-width: 80%;
-            max-height: 70vh;
-            border: 4px solid #d4af37;
-            border-radius: 10px;
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
-            transition: transform 0.3s ease;
-        }
-
-        #vue-facade img:hover {
-            transform: scale(1.02);
-        }
-
-        .facade-instruction {
-            margin-top: 20px;
-            color: #d4af37;
-            font-size: 1.5rem;
-            text-transform: uppercase;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
-        }
-
-        #vue-hall {
-            display: none;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
             flex-direction: column;
-            min-height: 100vh;
-        }
-
-        .galerie-portraits {
-            display: flex;
             justify-content: center;
-            gap: 12px;
-            padding: 15px;
-            background: #1f2937;
-            flex-wrap: wrap;
-            border-bottom: 2px solid #374151;
-        }
-
-        .cadre-portrait {
-            text-align: center;
+            align-items: center;
             cursor: pointer;
-            width: 75px;
-            transition: transform 0.3s ease;
-        }
-
-        .cadre-portrait:hover {
-            transform: translateY(-5px);
-        }
-
-        .cadre-portrait img {
-            width: 65px;
-            height: 65px;
-            object-fit: cover;
-            border: 2px solid #d4af37;
-            border-radius: 50%;
-            display: block;
-            margin: 0 auto 4px auto;
-        }
-
-        .cadre-portrait span {
-            font-size: 0.7rem;
-            color: #d4af37;
-            font-weight: bold;
-        }
-
-        .section-avatar {
-            display: flex;
-            justify-content: center;
+            box-sizing: border-box;
             padding: 20px;
-            background: linear-gradient(to bottom, #111827, #1f2937);
-            border-bottom: 1px solid #374151;
         }
 
-        .avatar-container {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            border: 2px solid #d4af37;
-            padding: 15px 25px;
-            border-radius: 15px;
-            max-width: 650px;
-            width: 100%;
-            background: rgba(11, 15, 25, 0.95);
-            box-shadow: 0 0 25px rgba(212, 175, 55, 0.4);
-            animation: apparition-statue 1.5s ease-out;
-        }
-
-        @keyframes apparition-statue {
-            0% { opacity: 0; transform: scale(0.9) translateY(15px); }
-            100% { opacity: 1; transform: scale(1) translateY(0); }
-        }
-
-        .avatar-cercle {
-            width: 60px;
-            height: 60px;
+        /* Images à taille équilibrée et élégante */
+        .image-institut {
+            width: 85vw;
+            max-width: 1050px;
+            height: 70vh;
+            max-height: 650px;
+            object-fit: cover;
             border: 3px solid #d4af37;
-            border-radius: 50%;
+            border-radius: 12px;
+            box-shadow: 0 0 35px rgba(212, 175, 55, 0.5);
+            margin-bottom: 15px;
+        }
+
+        .titre-container {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 1.6rem;
+            letter-spacing: 2px;
+            margin: 0 0 5px 0;
+            color: #d4af37;
+        }
+
+        p {
+            font-size: 0.95rem;
+            margin: 0;
+            color: #ffffff;
+        }
+        
+        /* Écran du hall caché par défaut */
+        #conteneur-de-hall {
+            display: none;
+        }
+
+        /* --- L'EFFET DE MARCHE DEPUIS LA STATUE --- */
+        #avatar-accueil {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.1);
+            opacity: 0;
             display: flex;
-            justify-content: center;
             align-items: center;
-            font-size: 1.8rem;
+            background: rgba(5, 11, 20, 0.95);
+            border: 2px solid #d4af37;
+            border-radius: 15px;
+            padding: 15px 25px;
+            box-shadow: 0 0 50px rgba(212, 175, 55, 0.9);
+            z-index: 10;
+            animation: marcheVersNous 1.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            animation-delay: 0.2s;
+        }
+
+        @keyframes marcheVersNous {
+            0% {
+                top: 40%;
+                transform: translate(-50%, -50%) scale(0.1);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                top: 65%;
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes lévitationMarche {
+            0% { transform: translateY(0) rotate(-1deg); filter: drop-shadow(0 0 8px #d4af37); }
+            50% { transform: translateY(-8px) rotate(1deg); filter: drop-shadow(0 0 20px #d4af37); }
+            100% { transform: translateY(0) rotate(-1deg); filter: drop-shadow(0 0 8px #d4af37); }
+        }
+
+        #avatar-accueil img {
+            width: 90px;
+            height: auto;
+            margin-right: 15px;
+            border: none;
+            box-shadow: none;
+            animation: lévitationMarche 1.5s ease-in-out infinite alternate;
+        }
+
+        .bulle-dialogue {
+            text-align: left;
+        }
+        .bulle-dialogue h3 {
+            margin: 0 0 5px 0;
+            font-size: 1.1rem;
             color: #d4af37;
+        }
+        .bulle-dialogue p {
+            margin: 0 0 10px 0;
+            font-size: 0.95rem;
+            color: #ffffff;
+        }
+        .btn-fermer {
+            background: #d4af37;
+            color: #050b14;
+            border: none;
+            padding: 6px 14px;
             font-weight: bold;
-            background: #111827;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
-            flex-shrink: 0;
-        }
-
-        #texte-avatar {
-            font-size: 1rem;
-            color: #f0f4f8;
-            line-height: 1.4;
-        }
-
-        .contenu-principal {
-            padding: 25px;
-            text-align: center;
-            flex-grow: 1;
-        }
-
-        h2 {
-            color: #d4af37;
-            margin-bottom: 10px;
-        }
-
-        p.description-hall {
-            color: #9ca3af;
-            max-width: 600px;
-            margin: 0 auto 20px auto;
-        }
-
-        .zone-couloirs {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px dashed #374151;
-        }
-
-        .couloirs {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .bouton-couloir {
-            background-color: #1f2937;
-            border: 1px solid #d4af37;
-            color: #f0f4f8;
-            padding: 10px 20px;
-            border-radius: 5px;
+            border-radius: 4px;
             cursor: pointer;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: bold;
-            transition: background 0.3s ease;
+            transition: background 0.2s;
         }
-
-        .bouton-couloir:hover {
-            background-color: #374151;
-            color: #d4af37;
-        }
-
-        footer {
-            text-align: center;
-            padding: 15px;
-            background: #111827;
-            border-top: 1px solid #374151;
-            font-size: 0.8rem;
-            color: #6b7280;
+        .btn-fermer:hover {
+            background: #fff;
         }
     </style>
 </head>
 <body>
 
-    <div id="vue-facade" onclick="entrerDansLInstitut()">
-        <img src="facade.jpg" alt="Façade de l'Institut Pi au cube">
-        <div class="facade-instruction">Cliquez sur la façade pour entrer</div>
+    <!-- 1. LA FAÇADE -->
+    <div id="conteneur-de-facade" class="page-container" onclick="entrerDansLInstitut()">
+        <img src="facade.jpg" alt="Façade de l'Institut" class="image-institut">
+        <div class="titre-container">
+            <h1>INSTITUT PICUBE - &pi;&sup3;</h1>
+            <p><em>Cliquez n'importe où pour entrer dans le hall</em></p>
+        </div>
     </div>
 
-    <div id="vue-hall">
+    <!-- 2. LE HALL -->
+    <div id="conteneur-de-hall" class="page-container" onclick="event.stopPropagation();">
+        <img src="hall.jpg" alt="Hall Circulaire" class="image-institut">
+        <div class="titre-container">
+            <h2>Hall Circulaire de l'Institut</h2>
+        </div>
         
-        <div class="galerie-portraits">
-            <div class="cadre-portrait" onclick="interagirGenie('Albert Einstein')">
-                <img src="Albert Einstein.jpg" alt="Albert Einstein">
-                <span>Einstein</span>
-            </div>
-            <div class="cadre-portrait" onclick="interagirGenie('Pierre et Marie Curie')">
-                <img src="Pierre et Marie Curie.jpg" alt="Pierre et Marie Curie">
-                <span>Les Curie</span>
-            </div>
-            <div class="cadre-portrait" onclick="interagirGenie('Nikola Tesla')">
-                <img src="Nikola_Tesla.jpg" alt="Nikola Tesla">
-                <span>Tesla</span>
-            </div>
-            <div class="cadre-portrait" onclick="interagirGenie('Nathan Rosen')">
-                <img src="Rosen_Nathan.jpg" alt="Nathan Rosen">
-                <span>Rosen</span>
-            </div>
-            <div class="cadre-portrait" onclick="interagirGenie('Louis de Broglie')">
-                <img src="Louis Victor Broglie.jpg" alt="Louis de Broglie">
-                <span>De Broglie</span>
-            </div>
-            <div class="cadre-portrait" onclick="interagirGenie('Michael Faraday')">
-                <img src="Michael_Faraday.jpg" alt="Michael Faraday">
-                <span>Faraday</span>
+        <!-- PI QUI SE DÉTACHE DE LA STATUE ET S'AVANCE VERS NOUS -->
+        <div id="avatar-accueil">
+            <img src="logopi.jpg" alt="Avatar PiCube">
+            <div class="bulle-dialogue">
+                <h3>PiCube (Guide de l'Institut)</h3>
+                <p>😊 Bonjour ! Comment puis-je vous aider ?</p>
+                <button class="btn-fermer" onclick="fermerAccueil()">Entrer dans l'Institut</button>
             </div>
         </div>
-
-        <div class="section-avatar">
-            <div class="avatar-container">
-                <div class="avatar-cercle">Π</div>
-                <div id="texte-avatar"><strong>Avatar PII :</strong> Bonjour, comment puis-je vous faire découvrir l'Institut Pi au cube ?</div>
-            </div>
-        </div>
-
-        <div class="contenu-principal">
-            <h2>Hall Circulaire Principal</h2>
-            <p class="description-hall">Empruntez l'un des couloirs de circulation pour découvrir les départements :</p>
-
-            <div class="zone-couloirs">
-                <div class="couloirs">
-                    <a href="energie.html" class="bouton-couloir">← Couloir Gauche : Énergie</a>
-                    <a href="espace.html" class="bouton-couloir">↑ Couloir Central : Espace</a>
-                    <a href="medecine.html" class="bouton-couloir">Couloir Droite : Médecine →</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="galerie-portraits">
-            <div class="cadre-portrait" onclick="interagirGenie('Joseph Fourier')">
-                <img src="Joseph Fourier (1768-1830).jpg" alt="Joseph Fourier">
-                <span>Fourier</span>
-            </div>
-            <div class="cadre-portrait" onclick="interagirGenie('Archimède')">
-                <img src="Archimede.jpg" alt="Archimède">
-                <span>Archimède</span>
-            </div>
-            <div class="cadre-portrait" onclick="interagirGenie('Carl Friedrich Gauss')">
-                <img src="Carl Friedrich Gauss 1840.jpg" alt="Carl Friedrich Gauss">
-                <span>Gauss</span>
-            </div>
-            <div class="cadre-portrait" onclick="interagirGenie('Dmitri Mendeleïev')">
-                <img src="Dmitri_Mendeleev.jpg" alt="Dmitri Mendeleïev">
-                <span>Mendeleïev</span>
-            </div>
-            <div class="cadre-portrait" onclick="interagirGenie('Heinrich Hertz')">
-                <img src="Heinrich-Hertz.jpg" alt="Heinrich Hertz">
-                <span>Hertz</span>
-            </div>
-            <div class="cadre-portrait" onclick="interagirGenie('James Clerk Maxwell')">
-                <img src="James-Clerk-Maxwell-1831-1879.jpg" alt="James Clerk Maxwell">
-                <span>Maxwell</span>
-            </div>
-        </div>
-
-        <footer>
-            Institut Pi au cube - Tous droits réservés
-        </footer>
-
     </div>
 
     <script>
         function entrerDansLInstitut() {
-            document.getElementById('vue-facade').style.display = 'none';
-            document.getElementById('vue-hall').style.display = 'flex';
+            var facade = document.getElementById("conteneur-de-facade");
+            var hall = document.getElementById("conteneur-de-hall");
+            
+            if (facade && hall) {
+                facade.style.display = "none";
+                hall.style.display = "flex";
+            }
         }
 
-        function interagirGenie(nom) {
-            document.getElementById('texte-avatar').innerHTML = `<strong>Avatar PII :</strong> Vous contemplez le véritable portrait de <strong>${nom}</strong>, génie de l'Institut Pi au cube.`;
+        function fermerAccueil() {
+            var avatar = document.getElementById("avatar-accueil");
+            if (avatar) {
+                avatar.style.display = "none";
+            }
         }
     </script>
-
 </body>
 </html>
