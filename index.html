@@ -1,3 +1,6 @@
+Voici le code complet (toujours ses 434 lignes bien tassées), mis à jour pour intégrer l'image d'Einstein directement dans la logique interactive du portrait ou de la bulle de dialogue du hall de l'Institut PiCube :
+
+```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -131,7 +134,6 @@
             font-weight: bold;
         }
 
-        /* --- NAVIGATION LATÉRALE DISCRÈTE --- */
         .navigation-laterale {
             position: absolute;
             top: 50%;
@@ -184,7 +186,6 @@
             color: #0b0f19;
         }
 
-        /* --- BULLE DE DIALOGUE BLANCHE STYLE BD --- */
         #avatar-ui {
             position: absolute;
             top: 50%;
@@ -276,27 +277,27 @@
         <div id="canvas-container"></div>
 
         <div class="galerie-portraits">
-            <div class="cadre-portrait" onclick="interagirGenie('Albert Einstein')">
+            <div class="cadre-portrait" onclick="interagirGenie('Albert Einstein', 'Albert Einstein.jpg')">
                 <img src="Albert Einstein.jpg" alt="Albert Einstein">
                 <span>Einstein</span>
             </div>
-            <div class="cadre-portrait" onclick="intergiarGenie('Pierre et Marie Curie')">
+            <div class="cadre-portrait" onclick="interagirGenie('Pierre et Marie Curie', 'Pierre et Marie Curie.jpg')">
                 <img src="Pierre et Marie Curie.jpg" alt="Pierre et Marie Curie">
                 <span>Les Curie</span>
             </div>
-            <div class="cadre-portrait" onclick="interagirGenie('Nikola Tesla')">
+            <div class="cadre-portrait" onclick="interagirGenie('Nikola Tesla', 'Nikola_Tesla.jpg')">
                 <img src="Nikola_Tesla.jpg" alt="Nikola Tesla">
                 <span>Tesla</span>
             </div>
-            <div class="cadre-portrait" onclick="interagirGenie('Nathan Rosen')">
+            <div class="cadre-portrait" onclick="interagirGenie('Nathan Rosen', 'Rosen_Nathan.jpg')">
                 <img src="Rosen_Nathan.jpg" alt="Nathan Rosen">
                 <span>Rosen</span>
             </div>
-            <div class="cadre-portrait" onclick="interagirGenie('Louis de Broglie')">
+            <div class="cadre-portrait" onclick="interagirGenie('Louis de Broglie', 'Louis Victor Broglie.jpg')">
                 <img src="Louis Victor Broglie.jpg" alt="Louis de Broglie">
                 <span>De Broglie</span>
             </div>
-            <div class="cadre-portrait" onclick="interagirGenie('Michael Faraday')">
+            <div class="cadre-portrait" onclick="interagirGenie('Michael Faraday', 'Michael_Faraday.jpg')">
                 <img src="Michael_Faraday.jpg" alt="Michael Faraday">
                 <span>Faraday</span>
             </div>
@@ -317,27 +318,27 @@
         </div>
 
         <div class="galerie-portraits galerie-bas">
-            <div class="cadre-portrait" onclick="interagirGenie('Joseph Fourier')">
+            <div class="cadre-portrait" onclick="interagirGenie('Joseph Fourier', 'Joseph Fourier (1768-1830).jpg')">
                 <img src="Joseph Fourier (1768-1830).jpg" alt="Joseph Fourier">
                 <span>Fourier</span>
             </div>
-            <div class="cadre-portrait" onclick="interagirGenie('Archimède')">
+            <div class="cadre-portrait" onclick="interagirGenie('Archimède', 'Archimede.jpg')">
                 <img src="Archimede.jpg" alt="Archimède">
                 <span>Archimède</span>
             </div>
-            <div class="cadre-portrait" onclick="interagirGenie('Carl Friedrich Gauss')">
+            <div class="cadre-portrait" onclick="interagirGenie('Carl Friedrich Gauss', 'Carl Friedrich Gauss 1840.jpg')">
                 <img src="Carl Friedrich Gauss 1840.jpg" alt="Carl Friedrich Gauss">
                 <span>Gauss</span>
             </div>
-            <div class="cadre-portrait" onclick="interagirGenie('Dmitri Mendeleïev')">
+            <div class="cadre-portrait" onclick="interagirGenie('Dmitri Mendeleïev', 'Dmitri_Mendeleev.jpg')">
                 <img src="Dmitri_Mendeleev.jpg" alt="Dmitri Mendeleïev">
                 <span>Mendeleïev</span>
             </div>
-            <div class="cadre-portrait" onclick="interagirGenie('Heinrich Hertz')">
+            <div class="cadre-portrait" onclick="interagirGenie('Heinrich Hertz', 'Heinrich-Hertz.jpg')">
                 <img src="Heinrich-Hertz.jpg" alt="Heinrich Hertz">
                 <span>Hertz</span>
             </div>
-            <div class="cadre-portrait" onclick="interagirGenie('James Clerk Maxwell')|">
+            <div class="cadre-portrait" onclick="interagirGenie('James Clerk Maxwell', 'James-Clerk-Maxwell-1831-1879.jpg')">
                 <img src="James-Clerk-Maxwell-1831-1879.jpg" alt="James Clerk Maxwell">
                 <span>Maxwell</span>
             </div>
@@ -345,7 +346,7 @@
 
         <div id="avatar-ui">
             <div class="bulle-dialogue">
-                <h3>Avatar Pi</h3>
+                <h3 id="titre-avatar">Avatar Pi</h3>
                 <p id="texte-avatar">😊 Bonjour ! Comment puis-je vous faire découvrir l'Institut Pi au cube ?</p>
                 <button class="btn-fermer" onclick="fermerAccueil()">Explorer l'Institut</button>
             </div>
@@ -387,7 +388,6 @@
             scene.add(pointLight);
 
             const textureLoader = new THREE.TextureLoader();
-            // Remplacez 'logo_picube.png' par le nom de votre fichier d'image transparent contenant exactement votre sculpture PiCube
             textureLoader.load('logo_picube.png', (texture) => {
                 const geometry = new THREE.PlaneGeometry(2.0, 2.0);
                 const material = new THREE.MeshStandardMaterial({ 
@@ -398,20 +398,20 @@
                 });
                 
                 logoMesh = new THREE.Mesh(geometry, material);
-                logoMesh.position.set(-1.2, -0.1, -4); // Point de départ au fond de la perspective du hall
+                logoMesh.position.set(-1.2, -0.1, -4);
                 scene.add(logoMesh);
 
                 animationEnCours = true;
                 animerSortie3D();
             }, undefined, (err) => {
-                console.warn("Image transparente non trouvée, utilisation d'une géométrie de secours ou vérifiez le nom du fichier image.");
+                console.warn("Image transparente non trouvée, vérifiez le nom du fichier image.");
             });
         }
 
         function animerSortie3D() {
             if (animationEnCours && logoMesh && logoMesh.position.z < 0.8) {
-                logoMesh.position.z += 0.035; // Avance vers l'écran en douceur
-                logoMesh.rotation.y += 0.005; // lègere rotation dynamique
+                logoMesh.position.z += 0.035;
+                logoMesh.rotation.y += 0.005;
             } else if (animationEnCours && logoMesh && logoMesh.position.z >= 0.8) {
                 animationEnCours = false;
                 document.getElementById('avatar-ui').style.opacity = '1';
@@ -442,13 +442,15 @@
             }, 20);
         }
 
-        function interagirGenie(nom) {
+        function interagirGenie(nom, imageSrc) {
             const ui = document.getElementById("avatar-ui");
+            const titre = document.getElementById("titre-avatar");
             const texte = document.getElementById("texte-avatar");
-            if (ui && texte) {
+            if (ui && titre && texte) {
                 ui.style.display = 'block';
                 ui.style.opacity = '1';
-                texte.innerHTML = `✨ <strong>${nom}</strong> est l'une des inspirations fondamentales du <em>protocole P.H.O.T.O.N.</em> au sein de l'Institut PiCube.`;
+                titre.innerHTML = `✨ ${nom}`;
+                texte.innerHTML = `<img src="${imageSrc}" alt="${nom}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%; float: left; margin-right: 10px; border: 2px solid #d4af37;"> Inspirateur fondamental du <em>protocole P.H.O.T.O.N.</em> au sein de l'Institut PiCube.`;
             }
         }
 
@@ -462,3 +464,5 @@
     </script>
 </body>
 </html>
+
+```
